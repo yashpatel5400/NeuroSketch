@@ -2,3 +2,6 @@
 .DS_Store
 env
 venv
+
+# no need to include npm packages due to size
+static/node_modules/
