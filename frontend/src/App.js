@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
 import { Navbar, NavbarBrand } from "mdbreact";
-import './App.css';
+import { MDBBtn } from "mdbreact";
+import './App.scss';
 
 class App extends Component {
   render() {
     return (
-      <Navbar color="default-color" dark>
-        <NavbarBrand>
-          <strong className="white-text">NeuroSketch</strong>
-        </NavbarBrand>
-      </Navbar>
+      <div className="sidenav text-center">
+        <Navbar dark>
+          <NavbarBrand>
+            <strong className="white-text">NeuroSketch</strong>
+          </NavbarBrand>
+        </Navbar>
+
+        <MDBBtn outline color="info">Layer #1</MDBBtn>
+        <MDBBtn outline color="info">Layer #2</MDBBtn>
+        <MDBBtn outline color="info">Layer #3</MDBBtn>
+      </div>
     );
   }
 }
