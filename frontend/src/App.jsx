@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Navbar, NavbarBrand } from "mdbreact";
-import { MDBBtn } from "mdbreact";
+import { Navbar, NavbarBrand, MDBBtn } from "mdbreact";
+
 import './App.scss';
 
 class App extends Component {
