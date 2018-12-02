@@ -7,7 +7,7 @@ import * as actions from './actions';
 import { NodesPanel } from './components/NodesPanel';
 import { Diagram } from './components/Diagram';
 import { Controls } from './components/Controls';
-import './demo4.scss';
+import './demo.scss';
 
 class Demo extends React.Component {
   render() {

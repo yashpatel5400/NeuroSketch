@@ -1,11 +1,11 @@
 import React from 'react';
-import * as RJD from '../../../../../src/main';
-import { OutputNodeModel } from './OutputNodeModel';
+import * as RJD from '../../../../src/main';
+import { ConnectionNodeModel } from './ConnectionNodeModel';
 
-export class OutputNodeWidget extends React.Component {
+export class ConnectionNodeWidget extends React.Component {
   static defaultProps = {
     node: null,
-    color: 'rgb(0, 192, 255)'
+    color: 'rgb(224, 98, 20)'
   };
 
   onRemove() {
@@ -14,17 +14,26 @@ export class OutputNodeWidget extends React.Component {
     diagramEngine.forceUpdate();
   }
 
-  getOutPorts() {
+  getInPort() {
+    const { node, color, displayOnly } = this.props;
+    let inputNode = node;
+
+    if (displayOnly) {
+      inputNode = new ConnectionNodeModel(node.name, color);
+    }
+
+    return inputNode.getInPort ? <RJD.DefaultPortLabel model={inputNode.getInPort()} key='in-port' /> : null;
+  }
+
+  getOutPort() {
     const { node, color, displayOnly } = this.props;
     let outputNode = node;
 
     if (displayOnly) {
-      outputNode = new OutputNodeModel(node.name, color);
+      outputNode = new ConnectionNodeModel(node.name, color);
     }
 
-    return outputNode.getOutPorts ? outputNode.getOutPorts().map((port, i) => (
-      <RJD.DefaultPortLabel model={port} key={`out-port-${i}`} />
-    )) : [];
+    return outputNode.getOutPort ? <RJD.DefaultPortLabel model={outputNode.getOutPort()} key='out-port' /> : null;
   }
 
   render() {
@@ -44,8 +53,11 @@ export class OutputNodeWidget extends React.Component {
           {!displayOnly ? <div className='fa fa-close' onClick={this.onRemove.bind(this)} /> : null}
         </div>
         <div className='ports'>
+          <div className='in'>
+            {this.getInPort()}
+          </div>
           <div className='out'>
-            {this.getOutPorts()}
+            {this.getOutPort()}
           </div>
         </div>
       </div>
@@ -53,4 +65,4 @@ export class OutputNodeWidget extends React.Component {
   }
 }
 
-export const OutputNodeWidgetFactory = React.createFactory(OutputNodeWidget);
+export const ConnectionNodeWidgetFactory = React.createFactory(ConnectionNodeWidget);

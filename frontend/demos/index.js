@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
-import { store } from './demo4/store';
-import { Demo4 } from './demo4/demo4';
+import { store } from './store';
+import { Demo4 } from './demo';
 
 window.onload = () => {
   const rootEl = document.getElementById('root');
@@ -19,5 +19,5 @@ window.onload = () => {
   };
 
   render(Demo4);
-  if (module.hot) module.hot.accept('./demo4/demo4', () => render(Demo4));
+  if (module.hot) module.hot.accept('./demo', () => render(Demo4));
 };

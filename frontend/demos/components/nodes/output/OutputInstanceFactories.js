@@ -1,4 +1,4 @@
-import * as RJD from '../../../../../src/main';
+import * as RJD from '../../../../src/main';
 import { OutputNodeModel } from './OutputNodeModel';
 
 export class OutputNodeFactory extends RJD.AbstractInstanceFactory {

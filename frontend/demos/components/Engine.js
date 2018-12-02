@@ -1,5 +1,5 @@
 import React from 'react';
-import * as RJD from '../../../src/main';
+import * as RJD from '../../src/main';
 import { OutputWidgetFactory } from './nodes/output/OutputWidgetFactory';
 import { OutputNodeFactory } from './nodes/output/OutputInstanceFactories';
 import { InputWidgetFactory } from './nodes/input/InputWidgetFactory';

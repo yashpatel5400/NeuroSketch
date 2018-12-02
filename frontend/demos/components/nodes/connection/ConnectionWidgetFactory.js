@@ -1,4 +1,4 @@
-import * as RJD from '../../../../../src/main';
+import * as RJD from '../../../../src/main';
 import { ConnectionNodeWidgetFactory } from './ConnectionNodeWidget';
 
 export class ConnectionWidgetFactory extends RJD.NodeWidgetFactory{

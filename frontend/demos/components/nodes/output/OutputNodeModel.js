@@ -1,11 +1,10 @@
 import _ from 'lodash';
-import * as RJD from '../../../../../src/main';
+import * as RJD from '../../../../src/main';
 
-export class ConnectionNodeModel extends RJD.NodeModel {
-  constructor(name = 'Untitled', color = 'rgb(224, 98, 20)') {
-    super('connection');
+export class OutputNodeModel extends RJD.NodeModel {
+  constructor(name = 'Untitled', color = 'rgb(0, 192, 255)') {
+    super('output');
     this.addPort(new RJD.DefaultPortModel(false, 'output', 'Out'));
-    this.addPort(new RJD.DefaultPortModel(true, 'input', 'In'));
     this.name = name;
     this.color = color;
   }
@@ -23,11 +22,7 @@ export class ConnectionNodeModel extends RJD.NodeModel {
     });
   }
 
-  getInPort() {
-    return this.ports.input;
-  }
-
-  getOutPort() {
-    return this.ports.output;
+  getOutPorts() {
+    return _.filter(this.ports, portModel => !portModel.in);
   }
 }

@@ -1,11 +1,11 @@
 import React from 'react';
-import * as RJD from '../../../../../src/main';
-import { InputNodeModel } from './InputNodeModel';
+import * as RJD from '../../../../src/main';
+import { OutputNodeModel } from './OutputNodeModel';
 
-export class InputNodeWidget extends React.Component {
+export class OutputNodeWidget extends React.Component {
   static defaultProps = {
     node: null,
-    color: 'rgb(192, 255, 0)'
+    color: 'rgb(0, 192, 255)'
   };
 
   onRemove() {
@@ -14,16 +14,16 @@ export class InputNodeWidget extends React.Component {
     diagramEngine.forceUpdate();
   }
 
-  getInPorts() {
+  getOutPorts() {
     const { node, color, displayOnly } = this.props;
-    let inputNode = node;
+    let outputNode = node;
 
     if (displayOnly) {
-      inputNode = new InputNodeModel(node.name, color);
+      outputNode = new OutputNodeModel(node.name, color);
     }
 
-    return inputNode.getInPorts ? inputNode.getInPorts().map((port, i) => (
-      <RJD.DefaultPortLabel model={port} key={`in-port-${i}`} />
+    return outputNode.getOutPorts ? outputNode.getOutPorts().map((port, i) => (
+      <RJD.DefaultPortLabel model={port} key={`out-port-${i}`} />
     )) : [];
   }
 
@@ -44,8 +44,8 @@ export class InputNodeWidget extends React.Component {
           {!displayOnly ? <div className='fa fa-close' onClick={this.onRemove.bind(this)} /> : null}
         </div>
         <div className='ports'>
-          <div className='in'>
-            {this.getInPorts()}
+          <div className='out'>
+            {this.getOutPorts()}
           </div>
         </div>
       </div>
@@ -53,4 +53,4 @@ export class InputNodeWidget extends React.Component {
   }
 }
 
-export const InputNodeWidgetFactory = React.createFactory(InputNodeWidget);
+export const OutputNodeWidgetFactory = React.createFactory(OutputNodeWidget);

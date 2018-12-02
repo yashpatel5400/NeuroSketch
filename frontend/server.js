@@ -20,10 +20,6 @@ config[1].entry = {
   demos: [
     ...hotEntries,
     './demos/index.js'
-  ],
-  demo4: [
-    ...hotEntries,
-    './demos/demo4/index.js'
   ]
 };
 config[1].output.filename = '[name].js';
