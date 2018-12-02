@@ -1,44 +1,183 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React JS Diagrams
 
-## Available Scripts
+[![npm version](https://img.shields.io/npm/v/react-js-diagrams.svg?style=flat-square)](https://www.npmjs.com/package/react-js-diagrams)
+[![npm downloads](https://img.shields.io/npm/dm/react-js-diagrams.svg?style=flat-square)](https://www.npmjs.com/package/react-js-diagrams)
 
-In the project directory, you can run:
+![Demo](./images/main.png)
 
-### `npm start`
+A React diagramming libary using lodash as its only additional dependency. Initially this project started as an ECMAScript / JSX port of the awesome [react-diagrams](https://github.com/projectstorm/react-diagrams)@2.3.6 repository by dylanvorster. It has since diverged with different features and goals. If you like TypeScript or a non JSX approach, check out the original repository.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## How To Install
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+```
+npm install --save react-js-diagrams
+```
+or
+```
+yarn add react-js-diagrams
+```
 
-### `npm test`
+The above assumes that you are using [npm](http://npmjs.com/) with a module bundler like [Webpack](http://webpack.github.io/) or [Browserify](http://browserify.org/) in order to consume [CommonJS modules](http://webpack.github.io/docs/commonjs.html).
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Viewing The Examples / Developing
 
-### `npm run build`
+From the repository directory, ensure you've run `npm install` then run `npm start` to spin up the development server and navigate to `http://localhost:3000`.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Alternatively, you can run `./node_modules/.bin/webpack` from the repository directory to build the demo bundles and run them from the file system.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+## How Does It Work
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The library uses a Model Graph to represent the virtual diagram and then renders the diagram using
+2 layers:
+* Node Layer -> responsible for rendering nodes as React components
+* Link Layer -> responsible for rendering links as SVG paths
 
-### `npm run eject`
+Each node and link is fed into a factory that then generates the corresponding node or link React widget. This allows for deep customization when creating your own nodes. Browse the demos directory to learn how to create your own custom nodes (see __demo3__ or __demo4__).
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+__Demo 3 Custom Node:__
+![CustomNode](./images/custom-nodes.png)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Events
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+The RJD Diagram Widget utilizes a standard onChange to capture events.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```javascript
+class MyDiagram extends React.Component {
+  onChange(model, action) {
+    console.log(model) // Serialized diagramModel
+    console.log(action) // Object containing the event type and returned properties
+  }
 
-## Learn More
+  render() {
+    return <RJD.DiagramWidget diagramEngine={diagramEngine} onChange={this.onChange.bind(this)} />;
+  }
+}
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Action Types And Return Properties
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
+
+__items-drag-selected__ -> Array items (NodeModel | LinkModel)
+
+__items-moved__ -> Array items (NodeModel | LinkModel)
+
+__items-selected__ -> NodeModel model, Array items (NodeModel | LinkModel)
+
+__items-select-all__ -> Array items (NodeModel | LinkModel)
+
+__items-deselect-all__ -> Array items (NodeModel | LinkModel)
+
+__items-deleted__ -> Array items (NodeModel | LinkModel | PointModel)
+
+__items-copied__ -> Array items (NodeModel | LinkModel)
+
+__items-pasted__ -> Array items (NodeModel | LinkModel)
+
+__link-created__ -> PointModel model
+
+__link-selected__ -> LinkModel model
+
+__link-deselected__ -> LinkModel model, Array items (NodeModel | LinkModel)
+
+__link-connected__ -> LinkModel linkModel, PortModel portModel
+
+__node-selected__ -> NodeModel model
+
+__node-deselected__ -> NodeModel model, Array items (NodeModel | LinkModel)
+
+__node-moved__ -> NodeModel model
+
+__point-created__ -> PointModel model
+
+__point-selected__ -> PointModel model
+
+__point-deselected__ -> PointModel model
+
+__canvas-drag__ -> event
+
+__canvas-shift-select__ -> event
+
+__canvas-click__ -> event
+
+## Keyboard / Mouse Commands
+
+__Delete__ removes any selected items
+![__Delete__](./images/rjdDelete.gif)
+
+__Shift + Mouse Drag__ triggers a multi-selection box
+![Shift + Mouse Drag](./images/mouseDrag.gif)
+
+__Shift + Mouse Click__ selects the item (items can be multi-selected)
+![Shift + Mouse Click](./images/shiftClick.gif)
+
+__Mouse Drag__ drags the entire diagram
+![Mouse Drag](./images/canvasDrag.gif)
+
+__Mouse Wheel__ zooms the diagram in / out
+![Mouse Wheel](./images/mouseWheel.gif)
+
+__Click Link + Drag__ creates a new link point
+![Click Link + Drag](./images/createPoint.gif)
+
+__Click Node Port + Drag__ creates a new link
+![Click Node Port + Drag](./images/createLink.gif)
+
+__Ctrl or ⌘ + C__ copy any selected items; note that only links that belong to a selected source node will
+be copied to the internal clipboard
+
+__Ctrl or ⌘ + V__ paste items previously copied to the internal clipboard
+
+__Ctrl or ⌘ + A__ select all items
+
+__Ctrl or ⌘ + D__ deselect all items
+
+## Disable Actions / Key Commands
+
+The diagram widget accepts an `actions` property which is an object containing specific keys with boolean values that disable / enable the given action. If a specific key isn't passed it will be enabled by default (passing null will disable all actions).
+
+#### Example
+
+The following example disables the keyboard commands listed in the below `actions` prop.
+
+```javascript
+render() {
+  return (
+    <RJD.DiagramWidget
+      diagramEngine={engine}
+      actions={{
+        deleteItems: false,
+        copy: false,
+        paste: false,
+        selectAll: false,
+        deselectAll: false
+      }}
+    />
+  );
+}
+```
+
+#### Supported Keys
+
+
+__deleteItems__ The deletion of items via delete keypress
+
+__selectItems__ The ability to select any item,
+
+__moveItems__ The ability to move items,
+
+__multiselect__ Shift selecting items,
+
+__multiselectDrag__ Multiselect box selection of items,
+
+__canvasDrag__ Dragging the canvas to move items,
+
+__zoom__ Zoom in / out by mouse wheel,
+
+__copy__ Copy items keyboard command,
+
+__paste__ Paste items keyboard command,
+
+__selectAll__ Select all keyboard command,
+
+__deselectAll__ Deselect all keyboard command
