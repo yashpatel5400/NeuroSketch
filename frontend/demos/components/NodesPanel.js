@@ -6,16 +6,16 @@ import { ConnectionNodeWidget } from './nodes/connection/ConnectionNodeWidget';
 
 class Node extends React.Component {
   renderNode() {
-    const { type, color } = this.props;
+    const { type, color, name } = this.props;
 
     if (type === 'output') {
-      return <OutputNodeWidget node={{ name: 'Output Node' }} displayOnly />;
+      return <OutputNodeWidget node={{ name: name }} displayOnly />;
     }
     if (type === 'input') {
-      return <InputNodeWidget node={{ name: 'Input Node' }} displayOnly />;
+      return <InputNodeWidget node={{ name: name }} displayOnly />;
     }
     if (type === 'connection') {
-      return <ConnectionNodeWidget node={{ name: 'Connection Node' }} color={color} displayOnly />;
+      return <ConnectionNodeWidget node={{ name: name }} color={color} displayOnly />;
     }
     console.warn('Unknown node type');
     return null;
@@ -37,19 +37,21 @@ export class NodesPanel extends React.Component {
     return (
       <div className='nodes-panel'>
         <div className='node-wrapper'>
-          <Node type='output' />
+          <Node type='output' name='Data Node' />
+        </div>
+
+        <div className='node-wrapper'>
+          <Node type='connection' color='rgb(224, 98, 20)' name='Dense Node' />
         </div>
         <div className='node-wrapper'>
-          <Node type='connection' color='rgb(224, 98, 20)' />
+          <Node type='connection' color='rgb(157, 13, 193)' name='Conv2D Node' />
         </div>
         <div className='node-wrapper'>
-          <Node type='connection' color='rgb(157, 13, 193)' />
+          <Node type='connection' color='rgb(12, 193, 180)' name='LSTM Node' />
         </div>
+        
         <div className='node-wrapper'>
-          <Node type='connection' color='rgb(12, 193, 180)' />
-        </div>
-        <div className='node-wrapper'>
-          <Node type='input' />
+          <Node type='input' name='Output Node' />
         </div>
       </div>
     );
