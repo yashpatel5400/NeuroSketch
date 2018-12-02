@@ -65,9 +65,6 @@ export class Diagram extends React.Component {
   }
 
   onChange(model, action) {
-    console.log('ON DIAGRAM CHANGE');
-    console.log(action);
-
     // Ignore some events
     if (['items-copied'].indexOf(action.type) !== -1) {
       return;

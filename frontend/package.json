@@ -30,7 +30,8 @@
   "author": "Jeff Wooden <woodenconsulting@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "lodash": "4.17.4"
+    "lodash": "4.17.4",
+    "mdbreact": "^4.8.4"
   },
   "devDependencies": {
     "babel-cli": "6.24.0",

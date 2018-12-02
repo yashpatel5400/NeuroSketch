@@ -7,15 +7,16 @@ import * as actions from './actions';
 import { NodesPanel } from './components/NodesPanel';
 import { Diagram } from './components/Diagram';
 import { Controls } from './components/Controls';
+
 import './App.scss';
 
 class Demo extends React.Component {
   render() {
-    const { model, selectedNode, onNodeSelected, updateModel, onUndo, onRedo, canUndo, canRedo } = this.props;
+    const { model, selectedNode, onNodeSelected, updateModel, onUndo, onRedo, onShow, canUndo, canRedo } = this.props;
     return (
   	  <DragDropContextProvider backend={HTML5Backend}>
     	  <div className='parent-container'>
-    	    <NodesPanel />
+          <NodesPanel />
   	      <Diagram
   	        model={model}
   	        updateModel={updateModel}
@@ -25,6 +26,7 @@ class Demo extends React.Component {
   	        selectedNode={selectedNode}
   	        onUndo={onUndo}
   	        onRedo={onRedo}
+            onShow={() => console.log(model)}
   	        canUndo={canUndo}
   	        canRedo={canRedo}
   	       />
