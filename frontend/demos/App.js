@@ -7,13 +7,12 @@ import * as actions from './actions';
 import { NodesPanel } from './components/NodesPanel';
 import { Diagram } from './components/Diagram';
 import { Controls } from './components/Controls';
-import './demo.scss';
+import './App.scss';
 
 class Demo extends React.Component {
   render() {
     const { model, selectedNode, onNodeSelected, updateModel, onUndo, onRedo, canUndo, canRedo } = this.props;
-
-  	return (
+    return (
   	  <DragDropContextProvider backend={HTML5Backend}>
     	  <div className='parent-container'>
     	    <NodesPanel />
@@ -49,4 +48,4 @@ const mapDispatchToProps = dispatch => ({
   onRedo: () => dispatch(UndoActionCreators.redo())
 });
 
-export const Demo4 = connect(mapStateToProps, mapDispatchToProps)(Demo);
+export const App = connect(mapStateToProps, mapDispatchToProps)(Demo);

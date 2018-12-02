@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
 import { store } from './store';
-import { Demo4 } from './demo';
+import { App } from './App';
 
 window.onload = () => {
   const rootEl = document.getElementById('root');
@@ -18,6 +18,6 @@ window.onload = () => {
     );
   };
 
-  render(Demo4);
-  if (module.hot) module.hot.accept('./demo', () => render(Demo4));
+  render(App);
+  if (module.hot) module.hot.accept('./App', () => render(App));
 };
