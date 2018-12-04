@@ -26,7 +26,10 @@ class Demo extends React.Component {
   	        selectedNode={selectedNode}
   	        onUndo={onUndo}
   	        onRedo={onRedo}
-            onShow={() => console.log(model)}
+            onShow={() => {
+              console.log(model["links"]);
+              console.log(model["nodes"]);
+            }}
   	        canUndo={canUndo}
   	        canRedo={canRedo}
   	       />
