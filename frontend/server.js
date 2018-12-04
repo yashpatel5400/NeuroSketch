@@ -13,10 +13,6 @@ const hotEntries = [
 
 // Update config entry and output
 config[1].entry = {
-  bundle: [
-    ...hotEntries,
-    './src/main.js'
-  ],
   demos: [
     ...hotEntries,
     './demos/index.js'
