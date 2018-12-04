@@ -1,7 +1,7 @@
-import * as RJD from '../../../../src/main';
+import { NodeWidgetFactory } from 'react-js-diagrams';
 import { ConnectionNodeWidgetFactory } from './ConnectionNodeWidget';
 
-export class ConnectionWidgetFactory extends RJD.NodeWidgetFactory{
+export class ConnectionWidgetFactory extends NodeWidgetFactory{
   constructor() {
     super('connection');
   }

@@ -1,5 +1,5 @@
 import React from 'react';
-import * as RJD from '../../../../src/main';
+import { DefaultPortLabel } from 'react-js-diagrams';
 import { ConnectionNodeModel } from './ConnectionNodeModel';
 
 export class ConnectionNodeWidget extends React.Component {
@@ -22,7 +22,7 @@ export class ConnectionNodeWidget extends React.Component {
       inputNode = new ConnectionNodeModel(node.name, color);
     }
 
-    return inputNode.getInPort ? <RJD.DefaultPortLabel model={inputNode.getInPort()} key='in-port' /> : null;
+    return inputNode.getInPort ? <DefaultPortLabel model={inputNode.getInPort()} key='in-port' /> : null;
   }
 
   getOutPort() {
@@ -33,7 +33,7 @@ export class ConnectionNodeWidget extends React.Component {
       outputNode = new ConnectionNodeModel(node.name, color);
     }
 
-    return outputNode.getOutPort ? <RJD.DefaultPortLabel model={outputNode.getOutPort()} key='out-port' /> : null;
+    return outputNode.getOutPort ? <DefaultPortLabel model={outputNode.getOutPort()} key='out-port' /> : null;
   }
 
   render() {

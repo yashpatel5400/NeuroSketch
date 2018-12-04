@@ -1,5 +1,5 @@
 import React from 'react';
-import * as RJD from '../../../../src/main';
+import { DefaultPortLabel } from 'react-js-diagrams';
 import { OutputNodeModel } from './OutputNodeModel';
 
 export class OutputNodeWidget extends React.Component {
@@ -23,7 +23,7 @@ export class OutputNodeWidget extends React.Component {
     }
 
     return outputNode.getOutPorts ? outputNode.getOutPorts().map((port, i) => (
-      <RJD.DefaultPortLabel model={port} key={`out-port-${i}`} />
+      <DefaultPortLabel model={port} key={`out-port-${i}`} />
     )) : [];
   }
 

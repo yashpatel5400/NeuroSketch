@@ -1,7 +1,7 @@
-import * as RJD from '../../../../src/main';
+import { NodeWidgetFactory } from 'react-js-diagrams';
 import { InputNodeWidgetFactory } from './InputNodeWidget';
 
-export class InputWidgetFactory extends RJD.NodeWidgetFactory{
+export class InputWidgetFactory extends NodeWidgetFactory{
   constructor() {
     super('input');
   }

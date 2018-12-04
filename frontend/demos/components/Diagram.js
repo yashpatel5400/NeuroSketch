@@ -1,14 +1,14 @@
 import React from 'react';
 import _ from 'lodash';
 import { DropTarget } from 'react-dnd';
-import * as RJD from '../../src/main';
+import { DiagramModel, DiagramWidget } from 'react-js-diagrams';
 import { OutputNodeModel } from './nodes/output/OutputNodeModel';
 import { InputNodeModel } from './nodes/input/InputNodeModel';
 import { ConnectionNodeModel } from './nodes/connection/ConnectionNodeModel';
 import { diagramEngine } from './Engine';
 
 // Setup the diagram model
-let diagramModel = new RJD.DiagramModel();
+let diagramModel = new DiagramModel();
 
 const nodesTarget = {
   drop(props, monitor, component) {
@@ -57,7 +57,7 @@ export class Diagram extends React.Component {
   }
 
   setModel(model) {
-    diagramModel = new RJD.DiagramModel();
+    diagramModel = new DiagramModel();
     if (model) {
       diagramModel.deSerializeDiagram(model, diagramEngine);
     }
@@ -96,7 +96,7 @@ export class Diagram extends React.Component {
     // Render the canvas
     return connectDropTarget (
       <div className='diagram-drop-container'>
-        <RJD.DiagramWidget diagramEngine={diagramEngine} onChange={this.onChange.bind(this)} />
+        <DiagramWidget diagramEngine={diagramEngine} onChange={this.onChange.bind(this)} />
       </div>
     );
   }

@@ -1,5 +1,5 @@
 import React from 'react';
-import * as RJD from '../../../../src/main';
+import { DefaultPortLabel } from 'react-js-diagrams';
 import { InputNodeModel } from './InputNodeModel';
 
 export class InputNodeWidget extends React.Component {
@@ -23,7 +23,7 @@ export class InputNodeWidget extends React.Component {
     }
 
     return inputNode.getInPorts ? inputNode.getInPorts().map((port, i) => (
-      <RJD.DefaultPortLabel model={port} key={`in-port-${i}`} />
+      <DefaultPortLabel model={port} key={`in-port-${i}`} />
     )) : [];
   }
 

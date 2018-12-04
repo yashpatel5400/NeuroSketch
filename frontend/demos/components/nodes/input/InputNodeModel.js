@@ -1,10 +1,10 @@
 import _ from 'lodash';
-import * as RJD from '../../../../src/main';
+import { NodeModel, DefaultPortModel } from 'react-js-diagrams';
 
-export class InputNodeModel extends RJD.NodeModel {
+export class InputNodeModel extends NodeModel {
   constructor(name = 'Untitled', color = 'rgb(192, 255, 0)') {
     super('input');
-    this.addPort(new RJD.DefaultPortModel(true, 'input', 'In'));
+    this.addPort(new DefaultPortModel(true, 'input', 'In'));
     this.name = name;
     this.color = color;
   }

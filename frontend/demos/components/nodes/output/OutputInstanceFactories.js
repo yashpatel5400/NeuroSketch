@@ -1,7 +1,7 @@
-import * as RJD from '../../../../src/main';
+import { AbstractInstanceFactory } from 'react-js-diagrams';
 import { OutputNodeModel } from './OutputNodeModel';
 
-export class OutputNodeFactory extends RJD.AbstractInstanceFactory {
+export class OutputNodeFactory extends AbstractInstanceFactory {
   constructor() {
     super('OutputNodeModel');
   }
