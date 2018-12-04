@@ -6,34 +6,11 @@ import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHot from 'webpack-hot-middleware';
 import config from './webpack.config';
 
-const hotEntries = [
-  'react-hot-loader/patch',
-  'webpack-hot-middleware/client'
-];
-
-// Update config entry and output
-config[1].entry = {
-  src: [
-    ...hotEntries,
-    './src/index.js'
-  ]
-};
-config[1].output.filename = '[name].js';
-config[1].output.path = path.join(__dirname, 'src');
-config[1].output.publicPath = '/dist/';
-delete config[1].externals;
-delete config[1].module.rules[1].loader;
-
-// Add plugins
-config[1].plugins = [
-  new webpack.HotModuleReplacementPlugin()
-];
-
 // Create express application and attach middleware
 const app = express();
-const compiler = webpack(config[1]);
+const compiler = webpack(config[0]);
 app.use(webpackMiddleware(compiler, {
-  publicPath: config[1].output.publicPath,
+  publicPath: config[0].output.publicPath,
   stats: {
     colors: true,
     hash: false,
