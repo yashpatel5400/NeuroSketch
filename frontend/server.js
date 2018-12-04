@@ -13,13 +13,13 @@ const hotEntries = [
 
 // Update config entry and output
 config[1].entry = {
-  demos: [
+  src: [
     ...hotEntries,
-    './demos/index.js'
+    './src/index.js'
   ]
 };
 config[1].output.filename = '[name].js';
-config[1].output.path = path.join(__dirname, 'demos');
+config[1].output.path = path.join(__dirname, 'src');
 config[1].output.publicPath = '/dist/';
 delete config[1].externals;
 delete config[1].module.rules[1].loader;
@@ -48,22 +48,10 @@ app.use(webpackHot(compiler));
 // Setup main route
 app.get('/', (req, res) => {
   const body = fs
-    .readFileSync(path.join(__dirname, 'demos/index.html'), 'utf8')
+    .readFileSync(path.join(__dirname, 'src/index.html'), 'utf8')
     .replace(
       '${SCRIPTS}',
-      '<script src="/dist/bundle.js"></script><script src="/dist/demos.js"></script>'
-    );
-  res.set('content-type', 'text/html');
-  res.send(body);
-});
-
-// Setup demo routes
-app.get('/demos/:name', (req, res) => {
-  const body = fs
-    .readFileSync(path.join(__dirname, 'demos/index.html'), 'utf8')
-    .replace(
-      '${SCRIPTS}',
-      '<script src="/dist/bundle.js"></script><script src="/dist/' + req.params.name + '.js"></script>'
+      '<script src="/dist/bundle.js"></script><script src="/dist/src.js"></script>'
     );
   res.set('content-type', 'text/html');
   res.send(body);
