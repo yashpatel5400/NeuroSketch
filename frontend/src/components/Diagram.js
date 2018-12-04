@@ -20,14 +20,15 @@ const nodesTarget = {
     const item = monitor.getItem();
 
     let node;
+    const nodeName = item.children.props.node.name;
     if (item.type === 'output') {
-      node = new OutputNodeModel('Output Node');
+      node = new OutputNodeModel(nodeName);
     }
     if (item.type === 'input') {
-      node = new InputNodeModel('Input Node');
+      node = new InputNodeModel(nodeName);
     }
     if (item.type === 'connection') {
-      node = new ConnectionNodeModel('Connection Node', item.color);
+      node = new ConnectionNodeModel(nodeName, item.color);
     }
 
     node.x = x;
