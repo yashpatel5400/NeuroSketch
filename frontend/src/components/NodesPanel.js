@@ -1,5 +1,5 @@
 import React from 'react';
-import { MDBBtn, NavbarBrand } from "mdbreact";
+import { MDBBtn, MDBCard, MDBCardHeader, MDBCardBody, MDBCardTitle, MDBCardText, NavbarBrand } from "mdbreact";
 import { DragWrapper } from './DragWrapper';
 import { OutputNodeWidget } from './nodes/output/OutputNodeWidget';
 import { InputNodeWidget } from './nodes/input/InputNodeWidget';
@@ -55,15 +55,20 @@ export class NodesPanel extends React.Component {
           <Node type='output' name='Data Node' />
         </div>
 
-        <div className='node-wrapper'>
-          <Node type='connection' color='rgb(224, 98, 20)' name='Dense Node' />
-        </div>
-        <div className='node-wrapper'>
-          <Node type='connection' color='rgb(157, 13, 193)' name='Conv2D Node' />
-        </div>
-        <div className='node-wrapper'>
-          <Node type='connection' color='rgb(12, 193, 180)' name='LSTM Node' />
-        </div>
+        <MDBCard color="special-color" border="success" style={{ width: "22rem", marginTop: "1rem" }} className="text-center">
+          <MDBCardHeader color="success-color">Core Layers</MDBCardHeader>
+          <MDBCardBody color="success-color">
+            <div className='node-wrapper'>
+              <Node type='connection' color='rgb(224, 98, 20)' name='Dense Node' />
+            </div>
+            <div className='node-wrapper'>
+              <Node type='connection' color='rgb(157, 13, 193)' name='Conv2D Node' />
+            </div>
+            <div className='node-wrapper'>
+              <Node type='connection' color='rgb(12, 193, 180)' name='LSTM Node' />
+            </div>
+          </MDBCardBody>
+        </MDBCard>
         
         <div className='node-wrapper'>
           <Node type='input' name='Output Node' />
