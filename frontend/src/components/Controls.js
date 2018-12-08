@@ -1,4 +1,5 @@
 import React from 'react';
+import { MDBBtn } from "mdbreact";
 
 export class Controls extends React.Component {
   render() {
@@ -8,9 +9,9 @@ export class Controls extends React.Component {
   	return (
   	  <div className='controls'>
   	    <div>
-  	      <button onClick={onUndo} disabled={!canUndo}>Undo</button>
-  	      <button onClick={onRedo} disabled={!canRedo}>Redo</button>
-          <button onClick={onShow}>Show Model</button>
+  	      <MDBBtn onClick={onUndo} disabled={!canUndo}>Undo</MDBBtn>
+  	      <MDBBtn onClick={onRedo} disabled={!canRedo}>Redo</MDBBtn>
+          <MDBBtn onClick={onShow}>Show Model</MDBBtn>
   	    </div>
   	    <pre>
   	      {content}
