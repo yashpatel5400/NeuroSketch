@@ -1,5 +1,5 @@
 // Colors
-$bg-color: #1370FB;
+$bg-color: #1C2331;
 $dot-color: #3882E8;
 
 // Dimensions
@@ -169,8 +169,7 @@ html, body, #root {
     flex: 0 0 8rem;
     display: flex;
     flex-direction: column;
-    max-width: 10rem;
-    background: rgb(120, 120, 120);
+    background: #37474F;
     border-right: 2px solid black;
     padding: 1rem;
 
@@ -197,12 +196,6 @@ html, body, #root {
         $dot-color;
       background-size: $dot-space $dot-space;
     }
-  }
-
-  .controls {
-    flex: 0 0 20rem;
-    max-width: 20rem;
-    overflow: auto;
   }
 }
 

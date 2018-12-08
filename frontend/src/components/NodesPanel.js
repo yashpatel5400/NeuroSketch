@@ -1,4 +1,5 @@
 import React from 'react';
+import { MDBBtn, NavbarBrand } from "mdbreact";
 import { DragWrapper } from './DragWrapper';
 import { OutputNodeWidget } from './nodes/output/OutputNodeWidget';
 import { InputNodeWidget } from './nodes/input/InputNodeWidget';
@@ -34,8 +35,22 @@ class Node extends React.Component {
 
 export class NodesPanel extends React.Component {
   render() {
+    const { selectedNode, onShow, onUndo, onRedo, canUndo, canRedo } = this.props;
+
     return (
       <div className='nodes-panel'>
+        <NavbarBrand>
+          <strong className="white-text">NeuroSketch</strong>
+        </NavbarBrand>
+
+        <hr />
+
+        <MDBBtn outline color="info" onClick={onUndo} disabled={!canUndo}><i className="fa fa-undo" aria-hidden="true"></i></MDBBtn>
+        <MDBBtn outline color="info" onClick={onRedo} disabled={!canRedo}><i className="fa fa-repeat" aria-hidden="true"></i></MDBBtn>
+        <MDBBtn outline color="info" onClick={onShow}><i className="fa fa-save" aria-hidden="true"></i></MDBBtn>
+
+        <hr />
+        
         <div className='node-wrapper'>
           <Node type='output' name='Data Node' />
         </div>

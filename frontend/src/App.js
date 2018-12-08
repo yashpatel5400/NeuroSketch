@@ -19,22 +19,20 @@ class Demo extends React.Component {
     return (
   	  <DragDropContextProvider backend={HTML5Backend}>
     	  <div className='parent-container'>
-          <NodesPanel />
-  	      <Diagram
-  	        model={model}
-  	        updateModel={updateModel}
-  	        onNodeSelected={onNodeSelected}
-  	       />
-  	      <Controls
-  	        selectedNode={selectedNode}
-  	        onUndo={onUndo}
-  	        onRedo={onRedo}
+          <NodesPanel 
+            selectedNode={selectedNode}
+            onUndo={onUndo}
+            onRedo={onRedo}
             onShow={() => {
               console.log(model["links"]);
               console.log(model["nodes"]);
             }}
-  	        canUndo={canUndo}
-  	        canRedo={canRedo}
+            canUndo={canUndo}
+            canRedo={canRedo} />
+  	      <Diagram
+  	        model={model}
+  	        updateModel={updateModel}
+  	        onNodeSelected={onNodeSelected}
   	       />
     	  </div>
   	  </DragDropContextProvider>
