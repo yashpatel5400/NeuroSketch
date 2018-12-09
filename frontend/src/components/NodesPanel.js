@@ -145,28 +145,29 @@ export class NodesPanel extends React.Component {
     }
 
     var layerTypeToColor = {
-      "Core" : "danger",
-      "Convolutional" : "warning",
-      "Pooling" : "success",
-      "Locally-Connected" : "info",
-      "Recurrent" : "default",
-      "Embedding" : "primary",
-      "Merge" : "secondary",
-      "Activation" : "elegant",
-      "Normalization" : "stylish",
-      "Noise" : "unique"
+      "Core" : ["danger", "#ff4444"],
+      "Convolutional" : ["warning", "#ffbb33"],
+      "Pooling" : ["success", "#00C851"],
+      "Locally-Connected" : ["info", "#33b5e5"],
+      "Recurrent" : ["default", "#2BBBAD"],
+      "Embedding" : ["primary", "#4285F4"],
+      "Merge" : ["secondary", "#aa66cc"],
+      "Activation" : ["elegant", "#2E2E2E"],
+      "Normalization" : ["stylish", "#4B515D"],
+      "Noise" : ["unique", "#3F729B"]
     }
 
     var layerTypes = Object.keys(layersTypesToNodes);
     var panelCards = [];
     for (var i = 0; i < layerTypes.length; i++) {
       var layerType = layerTypes[i];
-      var layerColor = layerTypeToColor[layerType];
+      var layerColor = layerTypeToColor[layerType][0];
+      var layerColorHex = layerTypeToColor[layerType][1];
       var headerColor = layerColor + "-color";
       var kerasNodes = layersTypesToNodes[layerType];
       var nodes = [];
       for (var j = 0; j < kerasNodes.length; j++) {
-        nodes.push(<Node type='connection' color='#007E33' name={ kerasNodes[j] } />);
+        nodes.push(<Node type='connection' color={ layerColorHex } name={ kerasNodes[j] } />);
       }
 
       panelCards.push(
@@ -191,16 +192,9 @@ export class NodesPanel extends React.Component {
         <MDBBtn outline color="info" onClick={onShow}><i className="fa fa-save" aria-hidden="true"></i></MDBBtn>
 
         <hr />
-        
-        <div className='node-wrapper'>
-          <Node type='output' name='Data Node' />
-        </div>
 
         { panelCards }
 
-        <div className='node-wrapper'>
-          <Node type='input' name='Output Node' />
-        </div>
       </div>
       </div>
     );
