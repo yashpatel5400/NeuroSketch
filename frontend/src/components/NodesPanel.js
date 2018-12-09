@@ -1,5 +1,7 @@
 import React from 'react';
 import { MDBBtn, MDBCard, MDBCardHeader, MDBCardBody, MDBCardTitle, MDBCardText, NavbarBrand } from "mdbreact";
+import SlidingPane from 'react-sliding-pane';
+
 import { DragWrapper } from './DragWrapper';
 import { OutputNodeWidget } from './nodes/output/OutputNodeWidget';
 import { InputNodeWidget } from './nodes/input/InputNodeWidget';
@@ -177,6 +179,7 @@ export class NodesPanel extends React.Component {
 
     return (
       <div className='nodes-panel'>
+      <div className='leftInternal'>
         <NavbarBrand>
           <strong className="white-text">NeuroSketch</strong>
         </NavbarBrand>
@@ -198,6 +201,7 @@ export class NodesPanel extends React.Component {
         <div className='node-wrapper'>
           <Node type='input' name='Output Node' />
         </div>
+      </div>
       </div>
     );
   }

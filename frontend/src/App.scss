@@ -10,7 +10,6 @@ $dot-space: 22px;
   position: relative;
   flex-grow: 1;
   display: flex;
-  cursor: move;
   overflow: hidden;
 
   .point {
@@ -50,7 +49,6 @@ $dot-space: 22px;
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none;   /* Chrome/Safari/Opera */
     user-select: none;
-    cursor: move;
     pointer-events: all;
 
     &.selected {
@@ -110,8 +108,7 @@ $dot-space: 22px;
       .fa {
         padding: 5px;
         opacity: 0.2;
-        cursor: pointer;
-
+        
         &:hover {
           opacity: 1.0;
         }
@@ -166,17 +163,15 @@ html, body, #root {
   flex-direction: row;
 
   .nodes-panel {
-    flex: 0 0 8rem;
-    display: flex;
-    flex-direction: column;
+    padding: 10px;
+    flex-grow: 1;
+    overflow-y: auto;
+
     background: #37474F;
     border-right: 2px solid black;
     padding: 1rem;
 
     .node-wrapper {
-      flex: 0 0 auto;
-      margin-bottom: 1rem;
-
       .basic-node {
         width: 100px;
       }
@@ -230,8 +225,7 @@ html, body, #root {
     .fa{
       padding: 5px;
       opacity: 0.2;
-      cursor: pointer;
-
+      
       &:hover{
         opacity: 1.0;
       }
@@ -274,3 +268,13 @@ html, body, #root {
   }
 }
 
+.container {
+  width: 90%;
+  height: 300px;
+  background: rgba(255, 125, 125, 1);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+}
