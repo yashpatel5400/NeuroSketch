@@ -164,7 +164,7 @@ html, body, #root {
 
   .nodes-panel {
     padding: 10px;
-    flex-grow: 1;
+    flex: 0 0 400px;
     overflow-y: auto;
 
     background: #37474F;

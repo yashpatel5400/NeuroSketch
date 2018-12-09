@@ -180,22 +180,29 @@ export class NodesPanel extends React.Component {
 
     return (
       <div className='nodes-panel'>
-      <div className='leftInternal'>
         <NavbarBrand>
           <strong className="white-text">NeuroSketch</strong>
         </NavbarBrand>
 
         <hr />
 
-        <MDBBtn outline color="info" onClick={onUndo} disabled={!canUndo}><i className="fa fa-undo" aria-hidden="true"></i></MDBBtn>
-        <MDBBtn outline color="info" onClick={onRedo} disabled={!canRedo}><i className="fa fa-repeat" aria-hidden="true"></i></MDBBtn>
-        <MDBBtn outline color="info" onClick={onShow}><i className="fa fa-save" aria-hidden="true"></i></MDBBtn>
+        <div style={{ textAlign : "center" }}>
+          <MDBBtn outline color="info" onClick={onUndo} disabled={!canUndo}>
+            <i className="fa fa-undo" aria-hidden="true"></i>
+          </MDBBtn>
+          
+          <MDBBtn outline color="info" onClick={onRedo} disabled={!canRedo}>
+            <i className="fa fa-repeat" aria-hidden="true"></i>
+          </MDBBtn>
+          
+          <MDBBtn outline color="info" onClick={onShow}>
+            <i className="fa fa-save" aria-hidden="true"></i>
+          </MDBBtn>
+        </div>
 
         <hr />
 
         { panelCards }
-
-      </div>
       </div>
     );
   }
