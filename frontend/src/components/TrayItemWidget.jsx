@@ -1,4 +1,8 @@
 import * as React from "react";
+import { MDBBtn } from "mdbreact";
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'mdbreact/dist/css/mdb.css';
 
 export class TrayItemWidget extends React.Component {
 	constructor(props) {
@@ -8,16 +12,14 @@ export class TrayItemWidget extends React.Component {
 
 	render() {
 		return (
-			<div
-				style={{ borderColor: this.props.color }}
+			<MDBBtn outline
 				draggable={true}
 				onDragStart={event => {
 					event.dataTransfer.setData("storm-diagram-node", JSON.stringify(this.props.model));
 				}}
-				className="tray-item"
 			>
 				{this.props.name}
-			</div>
+			</MDBBtn>
 		);
 	}
 }
