@@ -1,23 +1,11 @@
-import React from 'react';
+import * as React from "react";
 import ReactDOM from 'react-dom';
-import { AppContainer } from 'react-hot-loader';
-import { Provider } from 'react-redux';
-import { store } from './store';
-import { App } from './App';
 
-window.onload = () => {
-  const rootEl = document.getElementById('root');
-  const render = Component => {
-    ReactDOM.render(
-      <Provider store={store}>
-        <AppContainer>
-          <Component />
-        </AppContainer>
-      </Provider>,
-      rootEl
-    );
-  };
+import { BodyWidget } from "./components/BodyWidget";
+import { Application } from "./Application";
 
-  render(App);
-  if (module.hot) module.hot.accept('./App', () => render(App));
-};
+import "./sass/main.scss";
+
+var app = new Application();
+var body = <BodyWidget app={app} />;
+ReactDOM.render(body, document.getElementById('root'));
