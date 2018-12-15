@@ -1,9 +1,6 @@
 import * as React from "react";
 import { MDBBtn } from "mdbreact";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'mdbreact/dist/css/mdb.css';
-
 export class TrayItemWidget extends React.Component {
   constructor(props) {
     super(props);

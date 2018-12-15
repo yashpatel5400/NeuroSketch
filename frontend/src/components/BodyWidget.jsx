@@ -19,6 +19,7 @@ export class BodyWidget extends React.Component {
         <div className="content">
           <TrayWidget>
             <TrayItemWidget model={{ type: "in" }} name="In Node" color="rgb(192,255,0)" />
+            <TrayItemWidget model={{ type: "inout" }} name="InOut Node" color="rgb(192,255,0)" />
             <TrayItemWidget model={{ type: "out" }} name="Out Node" color="rgb(0,192,255)" />
           </TrayWidget>
           <div
@@ -36,8 +37,12 @@ export class BodyWidget extends React.Component {
               if (data.type === "in") {
                 node = new DefaultNodeModel("Node " + (nodesCount + 1), "rgb(192,255,0)");
                 node.addInPort("In");
+              } else if (data.type === "out") {
+                node = new DefaultNodeModel("Node " + (nodesCount + 1), "rgb(0,192,255)");
+                node.addOutPort("Out");
               } else {
                 node = new DefaultNodeModel("Node " + (nodesCount + 1), "rgb(0,192,255)");
+                node.addInPort("In");
                 node.addOutPort("Out");
               }
 
