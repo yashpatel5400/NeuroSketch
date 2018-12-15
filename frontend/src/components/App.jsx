@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as _ from "lodash";
 import { Nodes } from "./Nodes";
 import { DefaultNodeModel, DiagramWidget } from "storm-react-diagrams";
 
@@ -29,21 +28,12 @@ export class App extends React.Component {
             className="diagram-layer"
             onDrop={event => {
               var data = JSON.parse(event.dataTransfer.getData("storm-diagram-node"));
-              var nodesCount = _.keys(
-                this.state.diagramEngine
-                  .getDiagramModel()
-                  .getNodes()
-              ).length;
-
-              var node = null;
+              var node = new DefaultNodeModel(data.name, data.color);
               if (data.type === "in") {
-                node = new DefaultNodeModel("Node " + (nodesCount + 1), data.color);
                 node.addInPort("In");
               } else if (data.type === "out") {
-                node = new DefaultNodeModel("Node " + (nodesCount + 1), data.color);
                 node.addOutPort("Out");
               } else {
-                node = new DefaultNodeModel("Node " + (nodesCount + 1), data.color);
                 node.addInPort("In");
                 node.addOutPort("Out");
               }

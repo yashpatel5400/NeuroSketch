@@ -1,5 +1,5 @@
 import * as React from "react";
-import { TrayItemWidget } from "./TrayItemWidget";
+import { TrayItem } from "./TrayItem";
 import { MDBCard, MDBCardHeader, MDBCardBody } from "mdbreact";
 
 /**
@@ -130,7 +130,9 @@ export class Nodes extends React.Component {
       var nodes = [];
       
       for (var j = 0; j < kerasNodes.length; j++) {
-        nodes.push(<TrayItemWidget model={{ type: "inout", color: layerColorHex }} name={ kerasNodes[j] }></TrayItemWidget>);
+        nodes.push(<TrayItem 
+          model={{ type: "inout", color: layerColorHex, name: kerasNodes[j] }} 
+          name={ kerasNodes[j] }></TrayItem>);
       }
        panelCards.push(
         <MDBCard color="special-color" border={layerColor} style={{ width: "22rem", marginTop: "1rem" }} className="text-center">

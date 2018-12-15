@@ -1,7 +1,7 @@
 import * as React from "react";
 import { MDBBtn } from "mdbreact";
 
-export class TrayItemWidget extends React.Component {
+export class TrayItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
