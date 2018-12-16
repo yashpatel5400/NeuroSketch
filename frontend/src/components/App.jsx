@@ -2,7 +2,7 @@ import * as React from "react";
 import { Nodes } from "./Nodes";
 import { DefaultNodeModel, DiagramWidget } from "storm-react-diagrams";
 import Graph from "graph-data-structure";
-import { MDBBtn, Navbar, NavbarBrand, NavbarNav, NavItem } from "mdbreact";
+import { MDBBtn, Navbar, NavbarBrand, NavbarNav, NavItem, FormInline } from "mdbreact";
 import * as SRD from "storm-react-diagrams";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -56,10 +56,25 @@ export class App extends React.Component {
   render() {
     return (
       <div>
-        <Navbar color="grey" dark expand="md">
+        <Navbar color="unique-color-dark">
           <NavbarBrand>
             <strong className="white-text">NeuroSketch</strong>
           </NavbarBrand>
+
+          <NavbarNav left>
+            <NavItem>
+              <FormInline waves>
+                <div className="md-form my-0">
+                  <input
+                    className="form-control mr-sm-2"
+                    type="text"
+                    placeholder="Search"
+                    aria-label="Search"
+                  />
+                </div>
+              </FormInline>
+            </NavItem>
+          </NavbarNav>
 
           <NavbarNav right>
             <NavItem>

@@ -1,8 +1,8 @@
 @import "~storm-react-diagrams/src/sass/main.scss";
 
 // Colors
-$bg-color: #1370FB;
-$dot-color: #3882E8;
+$bg-color: #1C2331;
+$dot-color: #3F729B;
 
 // Dimensions
 $dot-size: 3px;
@@ -21,14 +21,22 @@ $dot-space: 22px;
     }
 
     .tray {
-      min-width: 200px;
+      min-width: 35%;
       height: 100vh;
-      background: rgb(20,20,20);
+      background: #3F729B;
       flex-grow: 0;
       flex-shrink: 0;
       overflow: scroll;
+
+      -webkit-align-content: center;
+      align-content: center;
     }
   }
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
 }
 
 .srd-demo-canvas {

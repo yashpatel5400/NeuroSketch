@@ -123,9 +123,9 @@ export class Nodes extends React.Component {
     var panelCards = [];
     for (var i = 0; i < layerTypes.length; i++) {
       var layerType = layerTypes[i];
-      var layerColor = layerTypeToColor[layerType][0];
+      var layerColor = "unique";
       var layerColorHex = layerTypeToColor[layerType][1];
-      var headerColor = layerColor + "-color";
+      var headerColor = "unique-color";
       var kerasNodes = layersTypesToNodes[layerType];
       var nodes = [];
       
@@ -135,7 +135,7 @@ export class Nodes extends React.Component {
           name={ kerasNodes[j] }></TrayItem>);
       }
        panelCards.push(
-        <MDBCard color="special-color" border={layerColor} style={{ width: "22rem", marginTop: "1rem" }} className="text-center">
+        <MDBCard color="unique-color-dark" border={layerColor} style={{ width: "22rem", marginTop: "1rem" }} className="text-center">
           <MDBCardHeader color={headerColor}>{ layerType } Layers</MDBCardHeader>
           <MDBCardBody> {nodes} </MDBCardBody>
         </MDBCard>
