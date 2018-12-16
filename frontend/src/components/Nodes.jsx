@@ -133,9 +133,10 @@ export class Nodes extends React.Component {
         nodes.push(<TrayItem 
           model={{ type: "inout", color: layerColorHex, name: kerasNodes[j] }} 
           name={ kerasNodes[j] }></TrayItem>);
+        nodes.push(<br />);
       }
-       panelCards.push(
-        <MDBCard color="unique-color-dark" border={layerColor} style={{ width: "22rem", marginTop: "1rem" }} className="text-center">
+      panelCards.push(
+        <MDBCard color="unique-color-dark" border={layerColor} style={{ marginTop: "1rem" }} className="text-center">
           <MDBCardHeader color={headerColor}>{ layerType } Layers</MDBCardHeader>
           <MDBCardBody> {nodes} </MDBCardBody>
         </MDBCard>
@@ -143,7 +144,7 @@ export class Nodes extends React.Component {
     }
 
     return (
-      <div className="tray">
+      <div className="tray text-center">
         { panelCards }
       </div>
     )
