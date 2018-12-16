@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Nodes } from "./Nodes";
 import { DefaultNodeModel, DiagramWidget } from "storm-react-diagrams";
-import Graph from "graph-data-structure";
 import { MDBBtn, Navbar, NavbarBrand, NavbarNav, NavItem, FormInline } from "mdbreact";
 import * as SRD from "storm-react-diagrams";
 import $ from "jquery";
@@ -22,15 +21,17 @@ export class App extends React.Component {
   }
 
   compileGraph() {
-    var graph = Graph();
-
-    var nodes = Object.keys(this.state.diagramEngine.diagramModel.nodes); 
-    for (var i = 0; i < nodes.length; i++) {
-      graph.addNode(nodes[i]);
+    var nodes = this.state.diagramEngine.diagramModel.nodes;
+    var nodeIds = Object.keys(nodes);
+    
+    var nodeProperties = [];
+    for (var i = 0; i < nodeIds.length; i++) {
+      nodeProperties.push(nodes[nodeIds[i]].name);
     }
 
     var edges = this.state.diagramEngine.diagramModel.links;
     var edgeIds = Object.keys(edges);
+    var fixedEdges = [];
     for (i = 0; i < edgeIds.length; i++) {
       // editor allows you to draw unterminated edges, which we ignore for the graph
       if (edges[edgeIds[i]].targetPort == null) {
@@ -41,16 +42,22 @@ export class App extends React.Component {
       var srcLabel = edges[edgeIds[i]].sourcePort.label;
       var src, dst;
       if (srcLabel === "In") {
-        src = edges[edgeIds[i]].sourcePort.id;
-        dst = edges[edgeIds[i]].targetPort.id;
+        src = edges[edgeIds[i]].sourcePort.parent.id;
+        dst = edges[edgeIds[i]].targetPort.parent.id;
       } else {
-        src = edges[edgeIds[i]].targetPort.id;
-        dst = edges[edgeIds[i]].sourcePort.id;
+        src = edges[edgeIds[i]].targetPort.parent.id;
+        dst = edges[edgeIds[i]].sourcePort.parent.id;
       }
 
-      graph.addEdge(src, dst);
+      fixedEdges.push([src, dst]);
     }
-    return graph.serialize();
+    
+    var graph = {
+      nodes : nodeIds,
+      nodeProps : nodeProperties,
+      edges : fixedEdges,
+    }
+    return graph;
   }
 
   render() {
