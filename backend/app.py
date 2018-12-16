@@ -17,7 +17,7 @@ def home():
 def compile():
     raw_graph_data = request.get_data()
     raw_graph = json.loads(raw_graph_data.decode('utf-8'))
-    print(raw_graph)
+
     # networkX is the canonical Python graph library, so convert to this
     G = nx.DiGraph() 
     for node, properties in zip(raw_graph['nodes'], raw_graph['nodeProps']):
@@ -27,9 +27,10 @@ def compile():
         src, dst = link
         G.add_edge(src, dst)
 
-    nx.draw_networkx(G)
-    plt.savefig("test.png")
-    plt.clf()
+    # draws the graph (for debugging purposes)
+    # nx.draw_networkx(G)
+    # plt.savefig("test.png")
+    # plt.clf()
 
 
 if __name__ == '__main__':
