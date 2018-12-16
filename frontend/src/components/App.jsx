@@ -15,9 +15,12 @@ export class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      search: "",
       diagramEngine: new SRD.DiagramEngine()
     };
     this.state.diagramEngine.installDefaultFactories();
+
+    this.handleChange = this.handleChange.bind(this);
   }
 
   compileGraph() {
@@ -60,6 +63,10 @@ export class App extends React.Component {
     return graph;
   }
 
+  handleChange(event) {
+    this.setState({search: event.target.value});
+  }
+
   render() {
     return (
       <div>
@@ -72,12 +79,12 @@ export class App extends React.Component {
             <NavItem>
               <FormInline waves>
                 <div className="md-form my-0">
-                  <input
+                  <input 
                     className="form-control mr-sm-2"
-                    type="text"
-                    placeholder="Search"
-                    aria-label="Search"
-                  />
+                    placeholder="Search" 
+                    value={this.state.search}
+                    type="text" 
+                    onChange={this.handleChange} />
                 </div>
               </FormInline>
             </NavItem>
@@ -101,7 +108,7 @@ export class App extends React.Component {
 
         <div className="body">
           <div className="content">
-            <Nodes />
+            <Nodes search={ this.state.search } />
             <div
               className="diagram-layer"
               onDrop={event => {

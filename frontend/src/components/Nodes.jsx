@@ -107,7 +107,8 @@ export class Nodes extends React.Component {
         "AlphaDropout"
       ]
     }
-     var layerTypeToColor = {
+
+    var layerTypeToColor = {
       "Core" : ["danger", "#ff4444"],
       "Convolutional" : ["warning", "#ffbb33"],
       "Pooling" : ["success", "#00C851"],
@@ -130,17 +131,26 @@ export class Nodes extends React.Component {
       var nodes = [];
       
       for (var j = 0; j < kerasNodes.length; j++) {
-        nodes.push(<TrayItem 
-          model={{ type: "inout", color: layerColorHex, name: kerasNodes[j] }} 
-          name={ kerasNodes[j] }></TrayItem>);
-        nodes.push(<br />);
+        if (kerasNodes[j].toLowerCase().indexOf(this.props.search.toLowerCase()) != -1) {
+          nodes.push(<TrayItem 
+            model={{ type: "inout", color: layerColorHex, name: kerasNodes[j] }} 
+            name={ kerasNodes[j] }></TrayItem>);
+          nodes.push(<br />);
+        }
       }
-      panelCards.push(
-        <MDBCard color="unique-color-dark" border={layerColor} style={{ marginTop: "1rem" }} className="text-center">
-          <MDBCardHeader color={headerColor}>{ layerType } Layers</MDBCardHeader>
-          <MDBCardBody> {nodes} </MDBCardBody>
-        </MDBCard>
-      );
+      if (nodes.length > 0) {
+        panelCards.push(
+          <MDBCard 
+            color="unique-color-dark" 
+            border={layerColor} 
+            style={{ marginTop: "1rem" }} 
+            className="text-center">
+            
+            <MDBCardHeader color={headerColor}>{ layerType } Layers</MDBCardHeader>
+            <MDBCardBody> {nodes} </MDBCardBody>
+          </MDBCard>
+        );
+      }
     }
 
     return (
