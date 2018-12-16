@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Nodes } from "./Nodes";
 import { DefaultNodeModel, DiagramWidget } from "storm-react-diagrams";
+import Graph from "graph-data-structure";
 
 import * as SRD from "storm-react-diagrams";
 
@@ -17,6 +18,37 @@ export class App extends React.Component {
       diagramEngine: new SRD.DiagramEngine()
     };
     this.state.diagramEngine.installDefaultFactories();
+  }
+
+  compileGraph() {
+    var graph = Graph();
+
+    var nodes = Object.keys(this.state.diagramEngine.diagramModel.nodes); 
+    for (var i = 0; i < nodes.length; i++) {
+      graph.addNode(nodes[i]);
+    }
+
+    var edges = this.state.diagramEngine.diagramModel.links;
+    var edgeIds = Object.keys(edges);
+    for (i = 0; i < edgeIds.length; i++) {
+      // editor allows you to draw unterminated edges, which we ignore for the graph
+      if (edges[edgeIds[i]].targetPort == null) {
+        continue;
+      }
+
+      // editor allows drawing edges from in -> out or out -> in, so we account for both
+      var srcLabel = edges[edgeIds[i]].sourcePort.label;
+      var src, dst;
+      if (srcLabel == "In") {
+        src = edges[edgeIds[i]].sourcePort.id;
+        dst = edges[edgeIds[i]].targetPort.id;
+      } else {
+        src = edges[edgeIds[i]].targetPort.id;
+        dst = edges[edgeIds[i]].sourcePort.id;
+      }
+
+      graph.addEdge(src, dst);
+    }
   }
 
   render() {
