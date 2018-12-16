@@ -4,6 +4,7 @@ import { DefaultNodeModel, DiagramWidget } from "storm-react-diagrams";
 import Graph from "graph-data-structure";
 import { MDBBtn, Navbar, NavbarBrand, NavbarNav, NavItem, FormInline } from "mdbreact";
 import * as SRD from "storm-react-diagrams";
+import $ from "jquery";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
@@ -39,7 +40,7 @@ export class App extends React.Component {
       // editor allows drawing edges from in -> out or out -> in, so we account for both
       var srcLabel = edges[edgeIds[i]].sourcePort.label;
       var src, dst;
-      if (srcLabel == "In") {
+      if (srcLabel === "In") {
         src = edges[edgeIds[i]].sourcePort.id;
         dst = edges[edgeIds[i]].targetPort.id;
       } else {
@@ -49,8 +50,7 @@ export class App extends React.Component {
 
       graph.addEdge(src, dst);
     }
-
-    return graph;
+    return graph.serialize();
   }
 
   render() {
@@ -78,7 +78,14 @@ export class App extends React.Component {
 
           <NavbarNav right>
             <NavItem>
-              <MDBBtn outline onClick={() => this.compileGraph()}>
+              <MDBBtn outline onClick={() => {
+                $.ajax({
+                  url:"compile", 
+                  type: "post",
+                  dataType: 'json',
+                  data: JSON.stringify(this.compileGraph())
+                });
+              }}>
                 Compile
               </MDBBtn>
             </NavItem>
