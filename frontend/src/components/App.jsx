@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Nodes } from "./Nodes";
 import { DefaultNodeModel, DiagramWidget } from "storm-react-diagrams";
-import { MDBBtn, Navbar, NavbarBrand, NavbarNav, NavItem, FormInline } from "mdbreact";
+import { MDBBtn, Navbar, NavbarBrand, NavbarNav, NavItem, FormInline, ModalHeader, ModalBody, Modal } from "mdbreact";
 import * as SRD from "storm-react-diagrams";
 import $ from "jquery";
 
@@ -16,11 +16,14 @@ export class App extends React.Component {
     super(props);
     this.state = {
       search: "",
-      diagramEngine: new SRD.DiagramEngine()
+      diagramEngine: new SRD.DiagramEngine(),
+      modal8: false
     };
     this.state.diagramEngine.installDefaultFactories();
 
     this.handleChange = this.handleChange.bind(this);
+    this.toggle = this.toggle.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   compileGraph() {
@@ -63,13 +66,27 @@ export class App extends React.Component {
     return graph;
   }
 
+  toggle(nr) {
+    console.log("inside")
+    let modalNumber = 'modal' + nr
+    this.setState({
+      [modalNumber]: !this.state[modalNumber]
+    });
+  }
+
   handleChange(event) {
     this.setState({search: event.target.value});
   }
 
+  handleClick(e) {
+    if (document.getElementsByClassName("srd-node--selected").length == 1) {
+      this.toggle(8);
+    }
+  }
+
   render() {
     return (
-      <div>
+      <div onClick={this.handleClick}>
         <Navbar color="unique-color-dark">
           <NavbarBrand>
             <strong className="white-text">NeuroSketch</strong>
@@ -139,6 +156,13 @@ export class App extends React.Component {
             </div>
           </div>
         </div>
+
+        <Modal isOpen={this.state.modal8} toggle={() => this.toggle(8)} fullHeight position="right">
+          <ModalHeader toggle={() => this.toggle(8)}>Modal title</ModalHeader>
+          <ModalBody>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          </ModalBody>
+        </Modal>
       </div>
     );
   }
