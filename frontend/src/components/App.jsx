@@ -67,7 +67,6 @@ export class App extends React.Component {
   }
 
   toggle(nr) {
-    console.log("inside")
     let modalNumber = 'modal' + nr
     this.setState({
       [modalNumber]: !this.state[modalNumber]
@@ -79,7 +78,11 @@ export class App extends React.Component {
   }
 
   handleClick(e) {
-    if (document.getElementsByClassName("srd-node--selected").length == 1) {
+    // really jank way of getting around the fact this is buried in the storm-diagrams
+    var selectedNodes = document.getElementsByClassName("srd-node--selected");
+    if (selectedNodes.length == 1) {
+      var nodeType = selectedNodes[0].innerText.split("\n")[0];
+      console.log(nodeType)
       this.toggle(8);
     }
   }
