@@ -5,6 +5,7 @@ import { MDBBtn, Navbar, NavbarBrand, NavbarNav, NavItem, FormInline, ModalHeade
 import * as SRD from "storm-react-diagrams";
 import $ from "jquery";
 
+import layersToArgs from './layers.json';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 
@@ -17,7 +18,10 @@ export class App extends React.Component {
     this.state = {
       search: "",
       diagramEngine: new SRD.DiagramEngine(),
-      modal8: false
+
+      argsPanel: false,
+      selectedLayer: "",
+      args: ""
     };
     this.state.diagramEngine.installDefaultFactories();
 
@@ -66,10 +70,9 @@ export class App extends React.Component {
     return graph;
   }
 
-  toggle(nr) {
-    let modalNumber = 'modal' + nr
+  toggle() {
     this.setState({
-      [modalNumber]: !this.state[modalNumber]
+      argsPanel: !this.state.argsPanel
     });
   }
 
@@ -82,8 +85,14 @@ export class App extends React.Component {
     var selectedNodes = document.getElementsByClassName("srd-node--selected");
     if (selectedNodes.length == 1) {
       var nodeType = selectedNodes[0].innerText.split("\n")[0];
-      console.log(nodeType)
-      this.toggle(8);
+      var args = layersToArgs[nodeType];
+
+      this.setState({
+        selectedLayer: nodeType,
+        args: JSON.stringify(args)
+      });
+
+      this.toggle();
     }
   }
 
@@ -160,11 +169,9 @@ export class App extends React.Component {
           </div>
         </div>
 
-        <Modal isOpen={this.state.modal8} toggle={() => this.toggle(8)} fullHeight position="right">
-          <ModalHeader toggle={() => this.toggle(8)}>Modal title</ModalHeader>
-          <ModalBody>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          </ModalBody>
+        <Modal isOpen={ this.state.argsPanel } toggle={() => this.toggle()} fullHeight position="right">
+          <ModalHeader toggle={() => this.toggle()}>{ this.state.selectedLayer }</ModalHeader>
+          { this.state.args }
         </Modal>
       </div>
     );
