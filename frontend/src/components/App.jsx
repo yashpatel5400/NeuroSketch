@@ -21,7 +21,8 @@ export class App extends React.Component {
 
       argsPanel: false,
       selectedLayer: "",
-      args: ""
+      args: "",
+      descriptions: ""
     };
     this.state.diagramEngine.installDefaultFactories();
 
@@ -89,7 +90,8 @@ export class App extends React.Component {
 
       this.setState({
         selectedLayer: nodeType,
-        args: Object.keys(argDescriptions)
+        args: Object.keys(argDescriptions),
+        descriptions: Object.values(argDescriptions)
       });
 
       this.toggle();
@@ -100,7 +102,8 @@ export class App extends React.Component {
     var argFields = [];
     for (var i = 0; i < this.state.args.length; i++) {
       argFields.push(<div>
-        { this.state.args[i] } : <input className="form-control mr-sm-2"type="text" />
+        { this.state.args[i] } : <input className="form-control mr-sm-2"type="text" /> <br />
+        { this.state.descriptions[i] }
       </div>)
     }
 
