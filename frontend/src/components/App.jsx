@@ -101,10 +101,23 @@ export class App extends React.Component {
   render() {
     var argFields = [];
     for (var i = 0; i < this.state.args.length; i++) {
-      argFields.push(<div>
-        { this.state.args[i] } : <input className="form-control mr-sm-2"type="text" /> <br />
-        { this.state.descriptions[i] }
-      </div>)
+      if (this.state.descriptions[i].indexOf("see <a href") !== -1) {
+        var description = this.state.descriptions[i];
+        var hrefTag = description.substr(description.indexOf("<a "));
+        var uncleanArgsType = hrefTag.substr(hrefTag.indexOf(">") + 1);
+        var argsType = uncleanArgsType.substr(0, uncleanArgsType.indexOf("</a>"));
+        var options = Object.keys(layersToArgs[argsType]);
+
+        argFields.push(<div>
+          { this.state.args[i] } : <input className="form-control mr-sm-2"type="text" /> <br />
+          { options }
+        </div>)
+      } else {
+        argFields.push(<div>
+          { this.state.args[i] } : <input className="form-control mr-sm-2"type="text" /> <br />
+          { this.state.descriptions[i] }
+        </div>)
+      }
     }
 
     return (

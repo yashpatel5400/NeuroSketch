@@ -1,6 +1,6 @@
 {
     "Activation": {
-        "activation": "name of activation function to use (see: <a href= ../../activations/ >activations</a>), or alternatively, a Theano or TensorFlow operation."
+        "activation": "name of activation function to use (see <a href= ../../activations/ >activations</a>), or alternatively, a Theano or TensorFlow operation."
     },
     "ActivityRegularization": {
         "l1": "L1 regularization factor (positive float).",
