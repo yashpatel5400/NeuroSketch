@@ -85,11 +85,11 @@ export class App extends React.Component {
     var selectedNodes = document.getElementsByClassName("srd-node--selected");
     if (selectedNodes.length == 1) {
       var nodeType = selectedNodes[0].innerText.split("\n")[0];
-      var args = layersToArgs[nodeType];
+      var argDescriptions = layersToArgs[nodeType];
 
       this.setState({
         selectedLayer: nodeType,
-        args: JSON.stringify(args)
+        args: Object.keys(argDescriptions)
       });
 
       this.toggle();
@@ -97,6 +97,13 @@ export class App extends React.Component {
   }
 
   render() {
+    var argFields = [];
+    for (var i = 0; i < this.state.args.length; i++) {
+      argFields.push(<div>
+        { this.state.args[i] } : <input className="form-control mr-sm-2"type="text" />
+      </div>)
+    }
+
     return (
       <div onClick={this.handleClick}>
         <Navbar color="unique-color-dark">
@@ -171,7 +178,11 @@ export class App extends React.Component {
 
         <Modal isOpen={ this.state.argsPanel } toggle={() => this.toggle()} fullHeight position="right">
           <ModalHeader toggle={() => this.toggle()}>{ this.state.selectedLayer }</ModalHeader>
-          { this.state.args }
+          <FormInline waves>
+            <div className="md-form my-0">
+              { argFields }
+            </div>
+          </FormInline>
         </Modal>
       </div>
     );
