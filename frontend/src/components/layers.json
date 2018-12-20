@@ -621,5 +621,49 @@
     "subtract": {
         "**kwargs": "Standard layer keyword arguments.",
         "inputs": "A list of input tensors (exactly 2)."
+    },
+    "activations": {
+        "elu": "",
+        "exponential": "",
+        "hard_sigmoid": "",
+        "linear": "",
+        "relu": "",
+        "selu": "",
+        "sigmoid": "",
+        "softmax": "",
+        "softplus": "",
+        "softsign": "",
+        "tanh": ""
+    },
+    "initializers": {
+        "constant": "",
+        "glorot_normal": "",
+        "glorot_uniform": "",
+        "he_normal": "",
+        "he_uniform": "",
+        "identity": "",
+        "lecun_normal": "",
+        "lecun_uniform": "",
+        "ones": "",
+        "orthogonal": "",
+        "random_normal": "",
+        "random_uniform": "",
+        "truncated_normal": "",
+        "uniform": "",
+        "zeros": ""
+    },
+    "constraints": {
+        "max_norm": "",
+        "maxnorm": "",
+        "min_max_norm": "",
+        "non_neg": "",
+        "nonneg": "",
+        "unit_norm": "",
+        "unitnorm": ""
+    },
+    "regularizer": {
+        "l1": "",
+        "l1_l2": "",
+        "l2": ""
     }
 }
