@@ -1,8 +1,7 @@
 import * as React from "react";
 import { Nodes } from "./Nodes";
 import { DefaultNodeModel, DiagramWidget } from "storm-react-diagrams";
-import { Container,
-Input, MDBBtn, Navbar, NavbarBrand, NavbarNav, NavItem, FormInline, ModalHeader, ModalBody, Modal } from "mdbreact";
+import { MDBBtn, Navbar, NavbarBrand, NavbarNav, NavItem, FormInline, ModalHeader, Modal } from "mdbreact";
 import * as SRD from "storm-react-diagrams";
 import $ from "jquery";
 
@@ -86,7 +85,7 @@ export class App extends React.Component {
   handleClick(e) {
     // really jank way of getting around the fact this is buried in the storm-diagrams
     var selectedNodes = document.getElementsByClassName("srd-node--selected");
-    if (selectedNodes.length == 1) {
+    if (selectedNodes.length === 1) {
       if (!this.state.argsPanel) {
         var nodeType = selectedNodes[0].innerText.split("\n")[0];
         var argDescriptions = layersToArgs[nodeType];

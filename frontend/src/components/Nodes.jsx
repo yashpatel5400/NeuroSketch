@@ -131,7 +131,7 @@ export class Nodes extends React.Component {
       var nodes = [];
       
       for (var j = 0; j < kerasNodes.length; j++) {
-        if (kerasNodes[j].toLowerCase().indexOf(this.props.search.toLowerCase()) != -1) {
+        if (kerasNodes[j].toLowerCase().indexOf(this.props.search.toLowerCase()) !== -1) {
           nodes.push(<TrayItem 
             model={{ type: "inout", color: layerColorHex, name: kerasNodes[j] }} 
             name={ kerasNodes[j] }></TrayItem>);
