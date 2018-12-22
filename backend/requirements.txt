@@ -2,3 +2,4 @@ flask
 networkx
 tensorflow
 keras
+gunicorn
