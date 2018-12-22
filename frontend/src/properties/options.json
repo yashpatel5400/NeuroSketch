@@ -16,6 +16,10 @@
         "true": "",
         "false": ""
     },
+    "channels_last": {
+        "channels_last": "",
+        "channels_first": ""
+    },
     "constraint": {
         "max_norm": "",
         "maxnorm": "",
@@ -41,6 +45,26 @@
         "truncated_normal": "",
         "uniform": "",
         "zeros": ""
+    },
+    "one of valid or same": {
+        "same": "",
+        "valid": ""
+    },
+    "one of valid, causal or same": {
+        "causal": "",
+        "same": "",
+        "valid": ""  
+    },
+    "one of {'sum', 'mul', 'concat', 'ave', None}": {
+        "sum": "", 
+        "mul": "", 
+        "concat": "", 
+        "ave": "", 
+        "None": ""
+    },
+    "one of nearest or bilinear": {
+        "nearest" : "",
+        "bilinear": ""
     },
     "regularizer": {
         "l1": "",

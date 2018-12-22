@@ -90,7 +90,7 @@ export class App extends React.Component {
       if (!this.state.argsPanel) {
         var nodeType = selectedNodes[0].innerText.split("\n")[0];
         var argDescriptions = layersToArgs[nodeType];
-
+        
         this.setState({
           selectedNodeType: nodeType,
           selectedNodeArgs: Object.keys(argDescriptions),
@@ -108,7 +108,15 @@ export class App extends React.Component {
       var discreteOptionField = false;
       for (var j = 0; j < fieldsWithOptions.length; j++) {
         var field = fieldsWithOptions[j];
-        if (this.state.selectedNodeArgsDescriptions[i].toLowerCase().indexOf(field) !== -1) {
+        var lowerDescription = this.state.selectedNodeArgsDescriptions[i].toLowerCase();
+        if (lowerDescription.indexOf(field) !== -1) {
+          var defaultInstance = lowerDescription.indexOf("default");
+          if (defaultInstance !== -1) {
+            var uncleanDefaultValue = lowerDescription.substr(defaultInstance).trim();
+            var defaultValue = uncleanDefaultValue.split(" ")[0];
+            console.log(defaultValue)
+          }
+
           var options = Object.keys(argsOptions[field]);
           var optionFields = [];
           for (var j = 0; j < options.length; j++) {
