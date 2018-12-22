@@ -21,23 +21,15 @@ export class App extends React.Component {
       diagramEngine: new SRD.DiagramEngine(),
 
       argsPanel: false,
-      selectedLayer: "",
-      args: "",
-      descriptions: "",
-      radio: 2
+      selectedNodeType: "",
+      selectedNodeArgs: "",
+      selectedNodeArgsDescriptions: ""
     };
     this.state.diagramEngine.installDefaultFactories();
 
     this.handleChange = this.handleChange.bind(this);
     this.toggle = this.toggle.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.onClick = this.onClick.bind(this);
-  }
-
-  onClick = (nr) => {
-    this.setState({
-      radio: nr
-    });
   }
 
   compileGraph() {
@@ -82,6 +74,7 @@ export class App extends React.Component {
 
   toggle() {
     this.setState({
+      selectedNodeId: "",
       argsPanel: !this.state.argsPanel
     });
   }
@@ -94,24 +87,25 @@ export class App extends React.Component {
     // really jank way of getting around the fact this is buried in the storm-diagrams
     var selectedNodes = document.getElementsByClassName("srd-node--selected");
     if (selectedNodes.length == 1) {
-      var nodeType = selectedNodes[0].innerText.split("\n")[0];
-      var argDescriptions = layersToArgs[nodeType];
+      if (!this.state.argsPanel) {
+        var nodeType = selectedNodes[0].innerText.split("\n")[0];
+        var argDescriptions = layersToArgs[nodeType];
 
-      this.setState({
-        selectedLayer: nodeType,
-        args: Object.keys(argDescriptions),
-        descriptions: Object.values(argDescriptions)
-      });
-
-      this.toggle();
-    }
+        this.setState({
+          selectedNodeType: nodeType,
+          selectedNodeArgs: Object.keys(argDescriptions),
+          selectedNodeArgsDescriptions: Object.values(argDescriptions),
+          argsPanel: true
+        });
+      } 
+    } 
   }
 
   render() {
     var argFields = [];
-    for (var i = 0; i < this.state.args.length; i++) {
-      if (this.state.descriptions[i].indexOf("see <a href") !== -1) {
-        var description = this.state.descriptions[i];
+    for (var i = 0; i < this.state.selectedNodeArgs.length; i++) {
+      if (this.state.selectedNodeArgsDescriptions[i].indexOf("see <a href") !== -1) {
+        var description = this.state.selectedNodeArgsDescriptions[i];
         var hrefTag = description.substr(description.indexOf("<a "));
         var uncleanArgsType = hrefTag.substr(hrefTag.indexOf(">") + 1);
         var argsType = uncleanArgsType.substr(0, uncleanArgsType.indexOf("</a>"));
@@ -123,13 +117,13 @@ export class App extends React.Component {
         }
 
         argFields.push(<div> 
-          { this.state.args[i] } : <select>{ optionFields }</select> <br />
-          { this.state.descriptions[i] }
+          { this.state.selectedNodeArgs[i] } : <select>{ optionFields }</select> <br />
+          { this.state.selectedNodeArgsDescriptions[i] }
         </div>)
       } else {
         argFields.push(<div>
-          { this.state.args[i] } : <input className="form-control mr-sm-2"type="text" /> <br />
-          { this.state.descriptions[i] }
+          { this.state.selectedNodeArgs[i] } : <input className="form-control mr-sm-2"type="text" /> <br />
+          { this.state.selectedNodeArgsDescriptions[i] }
         </div>)
       }
     }
@@ -207,7 +201,7 @@ export class App extends React.Component {
         </div>
 
         <Modal isOpen={ this.state.argsPanel } toggle={() => this.toggle()} fullHeight position="right">
-          <ModalHeader toggle={() => this.toggle()}>{ this.state.selectedLayer }</ModalHeader>
+          <ModalHeader toggle={() => this.toggle()}>{ this.state.selectedNodeType }</ModalHeader>
           <FormInline waves>
             <div className="md-form my-0">
               { argFields }
