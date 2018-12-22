@@ -5,6 +5,7 @@ import { MDBTooltip, MDBBtn, Navbar, NavbarBrand, NavbarNav, NavItem, FormInline
 import * as SRD from "storm-react-diagrams";
 import $ from "jquery";
 
+import layersToArgSplit from '../properties/arg_split.json';
 import layersToArgs from '../properties/layers.json';
 import argsOptions from '../properties/options.json';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -23,6 +24,7 @@ export class App extends React.Component {
       argsPanel: false,
       selectedNodeType: "",
       selectedNodeArgs: "",
+      selectedNodeNumRequiredArgs: 0,
       selectedNodeArgsDescriptions: ""
     };
     this.state.diagramEngine.installDefaultFactories();
@@ -91,10 +93,15 @@ export class App extends React.Component {
         var nodeType = selectedNodes[0].innerText.split("\n")[0];
         var argDescriptions = layersToArgs[nodeType];
 
+        var argsSplit = layersToArgSplit[nodeType];
+        var numRequiredArgs = argsSplit[0].length;
+        var selectedNodeArgs = argsSplit[0].concat(argsSplit[1]);
+
         this.setState({
           selectedNodeType: nodeType,
-          selectedNodeArgs: Object.keys(argDescriptions),
-          selectedNodeArgsDescriptions: Object.values(argDescriptions),
+          selectedNodeArgs: selectedNodeArgs,
+          selectedNodeNumRequiredArgs : numRequiredArgs,
+          selectedNodeArgsDescriptions: argDescriptions,
           argsPanel: true
         });
       } 
@@ -103,20 +110,24 @@ export class App extends React.Component {
 
   render() {
     var argFields = [];
+
+    argFields.push(<h3>Required</h3>);
     for (var i = 0; i < this.state.selectedNodeArgs.length; i++) {
       var fieldsWithOptions = Object.keys(argsOptions);
       var discreteOptionField = false;
       var content;
 
+      var nodeType = this.state.selectedNodeArgs[i];
+      var description = this.state.selectedNodeArgsDescriptions[nodeType];
+
       for (var j = 0; j < fieldsWithOptions.length; j++) {
         var field = fieldsWithOptions[j];
-        var lowerDescription = this.state.selectedNodeArgsDescriptions[i].toLowerCase();
+        var lowerDescription = description.toLowerCase();
         if (lowerDescription.indexOf(field) !== -1) {
           var defaultInstance = lowerDescription.indexOf("default");
           if (defaultInstance !== -1) {
             var uncleanDefaultValue = lowerDescription.substr(defaultInstance).trim();
             var defaultValue = uncleanDefaultValue.split(" ")[0];
-            console.log(defaultValue)
           }
 
           var options = Object.keys(argsOptions[field]);
@@ -141,10 +152,15 @@ export class App extends React.Component {
       argFields.push(<div>
           <MDBTooltip
             placement="bottom"
-            tooltipContent={ this.state.selectedNodeArgsDescriptions[i] }>
-            { this.state.selectedNodeArgs[i] } : { content } <br />
+            tooltipContent={ description }>
+            { nodeType } : { content } <br />
           </MDBTooltip> 
         </div>)
+
+      if (i == this.state.selectedNodeNumRequiredArgs) {
+        argFields.push(<hr />);
+        argFields.push(<h3>Optional</h3>);
+      }
     }
 
     return (
