@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Nodes } from "./Nodes";
 import { DefaultNodeModel, DiagramWidget } from "storm-react-diagrams";
-import { MDBBtn, Navbar, NavbarBrand, NavbarNav, NavItem, FormInline, ModalHeader, Modal } from "mdbreact";
+import { MDBTooltip, MDBBtn, Navbar, NavbarBrand, NavbarNav, NavItem, FormInline, ModalHeader, Modal } from "mdbreact";
 import * as SRD from "storm-react-diagrams";
 import $ from "jquery";
 
@@ -90,7 +90,7 @@ export class App extends React.Component {
       if (!this.state.argsPanel) {
         var nodeType = selectedNodes[0].innerText.split("\n")[0];
         var argDescriptions = layersToArgs[nodeType];
-        
+
         this.setState({
           selectedNodeType: nodeType,
           selectedNodeArgs: Object.keys(argDescriptions),
@@ -120,12 +120,15 @@ export class App extends React.Component {
           var options = Object.keys(argsOptions[field]);
           var optionFields = [];
           for (var j = 0; j < options.length; j++) {
-            optionFields.push(<option value="{ options[j] }">{ options[j] }</option>)
+            optionFields.push(<option value={ options[j] }>{ options[j] }</option>)
           }
 
           argFields.push(<div> 
-            { this.state.selectedNodeArgs[i] } : <select>{ optionFields }</select> <br />
-            { this.state.selectedNodeArgsDescriptions[i] }
+            <MDBTooltip
+              placement="bottom"
+              tooltipContent={ this.state.selectedNodeArgsDescriptions[i] }>
+              { this.state.selectedNodeArgs[i] } : <select>{ optionFields }</select> <br />
+            </MDBTooltip>
           </div>)
           discreteOptionField = true;
         }
@@ -137,8 +140,11 @@ export class App extends React.Component {
 
       if (!discreteOptionField) {
         argFields.push(<div>
-          { this.state.selectedNodeArgs[i] } : <input className="form-control mr-sm-2"type="text" /> <br />
-          { this.state.selectedNodeArgsDescriptions[i] }
+          <MDBTooltip
+            placement="bottom"
+            tooltipContent={ this.state.selectedNodeArgsDescriptions[i] }>
+            { this.state.selectedNodeArgs[i] } : <input className="form-control mr-sm-2"type="text" /> <br />
+          </MDBTooltip> 
         </div>)
       }
     }
