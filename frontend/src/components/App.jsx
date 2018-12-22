@@ -1,7 +1,8 @@
 import * as React from "react";
 import { Nodes } from "./Nodes";
 import { DefaultNodeModel, DiagramWidget } from "storm-react-diagrams";
-import { MDBBtn, Navbar, NavbarBrand, NavbarNav, NavItem, FormInline, ModalHeader, ModalBody, Modal } from "mdbreact";
+import { Container,
+Input, MDBBtn, Navbar, NavbarBrand, NavbarNav, NavItem, FormInline, ModalHeader, ModalBody, Modal } from "mdbreact";
 import * as SRD from "storm-react-diagrams";
 import $ from "jquery";
 
@@ -22,13 +23,21 @@ export class App extends React.Component {
       argsPanel: false,
       selectedLayer: "",
       args: "",
-      descriptions: ""
+      descriptions: "",
+      radio: 2
     };
     this.state.diagramEngine.installDefaultFactories();
 
     this.handleChange = this.handleChange.bind(this);
     this.toggle = this.toggle.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.onClick = this.onClick.bind(this);
+  }
+
+  onClick = (nr) => {
+    this.setState({
+      radio: nr
+    });
   }
 
   compileGraph() {
@@ -108,9 +117,14 @@ export class App extends React.Component {
         var argsType = uncleanArgsType.substr(0, uncleanArgsType.indexOf("</a>"));
         var options = Object.keys(layersToArgs[argsType]);
 
-        argFields.push(<div>
-          { this.state.args[i] } : <input className="form-control mr-sm-2"type="text" /> <br />
-          { options }
+        var optionFields = [];
+        for (var j = 0; j < options.length; j++) {
+          optionFields.push(<option value="{ options[j] }">{ options[j] }</option>)
+        }
+
+        argFields.push(<div> 
+          { this.state.args[i] } : <select>{ optionFields }</select> <br />
+          { this.state.descriptions[i] }
         </div>)
       } else {
         argFields.push(<div>
