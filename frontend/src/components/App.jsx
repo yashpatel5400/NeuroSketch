@@ -5,7 +5,8 @@ import { MDBBtn, Navbar, NavbarBrand, NavbarNav, NavItem, FormInline, ModalHeade
 import * as SRD from "storm-react-diagrams";
 import $ from "jquery";
 
-import layersToArgs from './layers.json';
+import layersToArgs from '../properties/layers.json';
+import argsOptions from '../properties/options.json';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 
@@ -103,23 +104,30 @@ export class App extends React.Component {
   render() {
     var argFields = [];
     for (var i = 0; i < this.state.selectedNodeArgs.length; i++) {
-      if (this.state.selectedNodeArgsDescriptions[i].indexOf("see <a href") !== -1) {
-        var description = this.state.selectedNodeArgsDescriptions[i];
-        var hrefTag = description.substr(description.indexOf("<a "));
-        var uncleanArgsType = hrefTag.substr(hrefTag.indexOf(">") + 1);
-        var argsType = uncleanArgsType.substr(0, uncleanArgsType.indexOf("</a>"));
-        var options = Object.keys(layersToArgs[argsType]);
+      var fieldsWithOptions = Object.keys(argsOptions);
+      var discreteOptionField = false;
+      for (var j = 0; j < fieldsWithOptions.length; j++) {
+        var field = fieldsWithOptions[j];
+        if (this.state.selectedNodeArgsDescriptions[i].toLowerCase().indexOf(field) !== -1) {
+          var options = Object.keys(argsOptions[field]);
+          var optionFields = [];
+          for (var j = 0; j < options.length; j++) {
+            optionFields.push(<option value="{ options[j] }">{ options[j] }</option>)
+          }
 
-        var optionFields = [];
-        for (var j = 0; j < options.length; j++) {
-          optionFields.push(<option value="{ options[j] }">{ options[j] }</option>)
+          argFields.push(<div> 
+            { this.state.selectedNodeArgs[i] } : <select>{ optionFields }</select> <br />
+            { this.state.selectedNodeArgsDescriptions[i] }
+          </div>)
+          discreteOptionField = true;
         }
+        
+        if (discreteOptionField) {
+          break;
+        }
+      }
 
-        argFields.push(<div> 
-          { this.state.selectedNodeArgs[i] } : <select>{ optionFields }</select> <br />
-          { this.state.selectedNodeArgsDescriptions[i] }
-        </div>)
-      } else {
+      if (!discreteOptionField) {
         argFields.push(<div>
           { this.state.selectedNodeArgs[i] } : <input className="form-control mr-sm-2"type="text" /> <br />
           { this.state.selectedNodeArgsDescriptions[i] }
