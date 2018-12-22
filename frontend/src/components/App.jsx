@@ -106,6 +106,8 @@ export class App extends React.Component {
     for (var i = 0; i < this.state.selectedNodeArgs.length; i++) {
       var fieldsWithOptions = Object.keys(argsOptions);
       var discreteOptionField = false;
+      var content;
+
       for (var j = 0; j < fieldsWithOptions.length; j++) {
         var field = fieldsWithOptions[j];
         var lowerDescription = this.state.selectedNodeArgsDescriptions[i].toLowerCase();
@@ -123,13 +125,7 @@ export class App extends React.Component {
             optionFields.push(<option value={ options[j] }>{ options[j] }</option>)
           }
 
-          argFields.push(<div> 
-            <MDBTooltip
-              placement="bottom"
-              tooltipContent={ this.state.selectedNodeArgsDescriptions[i] }>
-              { this.state.selectedNodeArgs[i] } : <select>{ optionFields }</select> <br />
-            </MDBTooltip>
-          </div>)
+          content = <select>{ optionFields }</select>;
           discreteOptionField = true;
         }
         
@@ -139,14 +135,16 @@ export class App extends React.Component {
       }
 
       if (!discreteOptionField) {
-        argFields.push(<div>
+        content = <input className="form-control mr-sm-2"type="text" />
+      }
+
+      argFields.push(<div>
           <MDBTooltip
             placement="bottom"
             tooltipContent={ this.state.selectedNodeArgsDescriptions[i] }>
-            { this.state.selectedNodeArgs[i] } : <input className="form-control mr-sm-2"type="text" /> <br />
+            { this.state.selectedNodeArgs[i] } : { content } <br />
           </MDBTooltip> 
         </div>)
-      }
     }
 
     return (
