@@ -30,8 +30,9 @@ def compile():
 
     # networkX is the canonical Python graph library, so convert to this
     G = nx.DiGraph() 
+
     for node, properties in zip(raw_graph['nodes'], raw_graph['nodeProps']):
-        G.add_node(node, name=properties)
+        G.add_node(node, args=properties['args'], name=properties['name'])
 
     for link in raw_graph['edges']:
         src, dst = link
@@ -39,19 +40,21 @@ def compile():
 
     # seqential ordering of nodes is its topological sort
     sequential_order = list(nx.topological_sort(G))
-    sequential_layers = [G.node[node_id]["name"] for node_id in sequential_order]
     
     model = Sequential()
+    for node_id in sequential_order:
+        keras_node_args = {}
+        for arg in G.node[node_id]["args"]:
+            keras_node_args[arg] = G.node[node_id]["args"][arg]["value"]
+        name = G.node[node_id]["name"]
+        model.add(name_to_layer[name](**keras_node_args))
 
-    for layer in sequential_layers:
-        model.add(name_to_layer[layer]())
-
-    # standard optimizer and loss function (assuming categorical data)
-    opt = keras.optimizers.rmsprop(lr=0.0001, decay=1e-6)
-    model.compile(loss='categorical_crossentropy',
-                  optimizer=opt,
-                  metrics=['accuracy'])
-    convert(model, "tensorflow")
+    # # standard optimizer and loss function (assuming categorical data)
+    # opt = keras.optimizers.rmsprop(lr=0.0001, decay=1e-6)
+    # model.compile(loss='categorical_crossentropy',
+    #               optimizer=opt,
+    #               metrics=['accuracy'])
+    # convert(model, "tensorflow")
 
     # draws the graph (for debugging purposes)
     # nx.draw_networkx(G)

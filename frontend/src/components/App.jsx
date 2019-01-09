@@ -68,7 +68,7 @@ export class App extends React.Component {
 
       fixedEdges.push([src, dst]);
     }
-    
+
     console.log(nodeProperties)
 
     var graph = {
@@ -187,6 +187,8 @@ export class App extends React.Component {
               }}>
                 Compile
               </MDBBtn>
+
+              <MDBBtn outline>Load Model</MDBBtn>
             </NavItem>
           </NavbarNav>
         </Navbar>
@@ -221,7 +223,7 @@ export class App extends React.Component {
                   node.args[arg] = {
                     description: argDescriptions[arg],
                     required: true,
-                    value: undefined
+                    value: ""
                   };
                 }
 
@@ -232,7 +234,7 @@ export class App extends React.Component {
                   var lowerDescription = description.toLowerCase();
                   var defaultInstance = lowerDescription.indexOf("default");
 
-                  var defaultValue = undefined;
+                  var defaultValue = "";
                   if (defaultInstance !== -1) {
                     var uncleanDefaultValue = lowerDescription.substr(defaultInstance).trim();
                     defaultValue = uncleanDefaultValue.split(" ")[0];
