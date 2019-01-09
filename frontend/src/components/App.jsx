@@ -37,7 +37,13 @@ export class App extends React.Component {
     
     var nodeProperties = [];
     for (var i = 0; i < nodeIds.length; i++) {
-      nodeProperties.push(nodes[nodeIds[i]].name);
+      var node = nodes[nodeIds[i]];
+      var property = {
+        name : node.name,
+        args : node.args
+      }
+
+      nodeProperties.push(property);
     }
 
     var edges = this.state.diagramEngine.diagramModel.links;
@@ -63,6 +69,8 @@ export class App extends React.Component {
       fixedEdges.push([src, dst]);
     }
     
+    console.log(nodeProperties)
+
     var graph = {
       nodes : nodeIds,
       nodeProps : nodeProperties,
@@ -209,7 +217,7 @@ export class App extends React.Component {
 
                 // argsSplit[0] contains all the required arguments for the layer
                 for (var i = 0; i < argsSplit[0].length; i++) {
-                  var arg = argsSplit[1][i];
+                  var arg = argsSplit[0][i];
                   node.args[arg] = {
                     description: argDescriptions[arg],
                     required: true,
@@ -218,7 +226,6 @@ export class App extends React.Component {
                 }
 
                 // argsSplit[1] contains all the optional arguments
-                console.log(layersToArgSplit)
                 for (i = 0; i < argsSplit[1].length; i++) {
                   arg = argsSplit[1][i];
                   var description = argDescriptions[arg];
@@ -237,8 +244,6 @@ export class App extends React.Component {
                     value: defaultValue
                   };
                 }
-
-                console.log(node.args)
                 
                 node.x = points.x;
                 node.y = points.y;
