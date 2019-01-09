@@ -26,9 +26,10 @@ export class App extends React.Component {
     };
     this.state.diagramEngine.installDefaultFactories();
 
-    this.handleChange = this.handleChange.bind(this);
-    this.toggle = this.toggle.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleFormChange = this.handleFormChange.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+    this.toggle = this.toggle.bind(this);
   }
 
   compileGraph() {
@@ -78,7 +79,11 @@ export class App extends React.Component {
     });
   }
 
-  handleChange(event) {
+  handleFormChange(event) {
+    console.log(event)
+  }
+
+  handleSearch(event) {
     this.setState({search: event.target.value});
   }
 
@@ -128,7 +133,9 @@ export class App extends React.Component {
               optionFields.push(<option value={ options[j] }>{ options[j] }</option>)
             }
 
-            content = <select>{ optionFields }</select>;
+            content = <select name={ selectedNodeArgs[i] } value={ value } onChange={ (event) => { 
+              this.state.selectedNode.args[event.target.name].value = event.target.value 
+            }}>{ optionFields }</select>;
             discreteOptionField = true;
           }
           
@@ -138,7 +145,7 @@ export class App extends React.Component {
         }
 
         if (!discreteOptionField) {
-          content = <input className="form-control mr-sm-2" type="text" />
+          content = <input className="form-control mr-sm-2" type="text" onChange={ this.handleFormChange } />
         }
 
         argFields.push(<div>
@@ -167,7 +174,7 @@ export class App extends React.Component {
                     placeholder="Search" 
                     value={this.state.search}
                     type="text" 
-                    onChange={this.handleChange} />
+                    onChange={this.handleSearch} />
                 </div>
               </FormInline>
             </NavItem>
