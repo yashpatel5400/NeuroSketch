@@ -27,7 +27,6 @@ export class App extends React.Component {
     this.state.diagramEngine.installDefaultFactories();
 
     this.handleClick = this.handleClick.bind(this);
-    this.handleFormChange = this.handleFormChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.toggle = this.toggle.bind(this);
   }
@@ -79,10 +78,6 @@ export class App extends React.Component {
     });
   }
 
-  handleFormChange(event) {
-    console.log(event)
-  }
-
   handleSearch(event) {
     this.setState({search: event.target.value});
   }
@@ -121,12 +116,6 @@ export class App extends React.Component {
           var field = fieldsWithOptions[j];
           var lowerDescription = description.toLowerCase();
           if (lowerDescription.indexOf(field) !== -1) {
-            var defaultInstance = lowerDescription.indexOf("default");
-            if (defaultInstance !== -1) {
-              var uncleanDefaultValue = lowerDescription.substr(defaultInstance).trim();
-              var defaultValue = uncleanDefaultValue.split(" ")[0];
-            }
-
             var options = Object.keys(argsOptions[field]);
             var optionFields = [];
             for (var j = 0; j < options.length; j++) {
@@ -145,7 +134,9 @@ export class App extends React.Component {
         }
 
         if (!discreteOptionField) {
-          content = <input className="form-control mr-sm-2" type="text" onChange={ this.handleFormChange } />
+          content = <input className="form-control mr-sm-2" name={ selectedNodeArgs[i] } type="text" value={ value } onChange={ (event) => { 
+            this.state.selectedNode.args[event.target.name].value = event.target.value 
+          }} />
         }
 
         argFields.push(<div>
@@ -233,10 +224,20 @@ export class App extends React.Component {
                 // argsSplit[1] contains all the optional arguments
                 for (i = 0; i < argsSplit[1].length; i++) {
                   arg = argsSplit[1][i];
+                  var description = argDescriptions[arg];
+                  var lowerDescription = description.toLowerCase();
+                  var defaultInstance = lowerDescription.indexOf("default");
+
+                  var defaultValue = undefined;
+                  if (defaultInstance !== -1) {
+                    var uncleanDefaultValue = lowerDescription.substr(defaultInstance).trim();
+                    defaultValue = uncleanDefaultValue.split(" ")[0];
+                  }
+
                   node.args[arg] = {
-                    description: argDescriptions[arg],
+                    description: description,
                     required: false,
-                    value: undefined
+                    value: defaultValue
                   };
                 }
                 
