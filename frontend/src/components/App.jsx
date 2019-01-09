@@ -104,17 +104,13 @@ export class App extends React.Component {
       for (var i = 0; i < selectedNodeArgs.length; i++) {
         var arg = this.state.selectedNode.args[selectedNodeArgs[i]];
 
-        var description = arg.description;
-        var required = arg.required;
-        var value = arg.value;
-          
         var fieldsWithOptions = Object.keys(argsOptions);
         var discreteOptionField = false;
         var content;
 
         for (var j = 0; j < fieldsWithOptions.length; j++) {
           var field = fieldsWithOptions[j];
-          var lowerDescription = description.toLowerCase();
+          var lowerDescription = arg.description.toLowerCase();
           if (lowerDescription.indexOf(field) !== -1) {
             var options = Object.keys(argsOptions[field]);
             var optionFields = [];
@@ -122,7 +118,7 @@ export class App extends React.Component {
               optionFields.push(<option value={ options[j] }>{ options[j] }</option>)
             }
 
-            content = <select name={ selectedNodeArgs[i] } value={ value } onChange={ (event) => { 
+            content = <select name={ selectedNodeArgs[i] } value={ arg.value } onChange={ (event) => { 
               this.state.selectedNode.args[event.target.name].value = event.target.value 
             }}>{ optionFields }</select>;
             discreteOptionField = true;
@@ -134,7 +130,7 @@ export class App extends React.Component {
         }
 
         if (!discreteOptionField) {
-          content = <input className="form-control mr-sm-2" name={ selectedNodeArgs[i] } type="text" value={ value } onChange={ (event) => { 
+          content = <input className="form-control mr-sm-2" name={ selectedNodeArgs[i] } type="text" value={ arg.value } onChange={ (event) => { 
             this.state.selectedNode.args[event.target.name].value = event.target.value 
           }} />
         }
@@ -142,7 +138,7 @@ export class App extends React.Component {
         argFields.push(<div>
             <MDBTooltip
               placement="bottom"
-              tooltipContent={ description }>
+              tooltipContent={ arg.description }>
               { selectedNodeArgs[i] } : { content } <br />
             </MDBTooltip> 
           </div>)
@@ -222,6 +218,7 @@ export class App extends React.Component {
                 }
 
                 // argsSplit[1] contains all the optional arguments
+                console.log(layersToArgSplit)
                 for (i = 0; i < argsSplit[1].length; i++) {
                   arg = argsSplit[1][i];
                   var description = argDescriptions[arg];
@@ -240,6 +237,8 @@ export class App extends React.Component {
                     value: defaultValue
                   };
                 }
+
+                console.log(node.args)
                 
                 node.x = points.x;
                 node.y = points.y;
