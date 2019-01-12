@@ -59,7 +59,7 @@
         "axis": "-1"
     },
     "Conv1D": {
-        " kernel_size": "",
+        "kernel_size": "",
         "activation": "None",
         "activity_regularizer": "None",
         "bias_constraint": "None",
@@ -76,7 +76,7 @@
         "use_bias": "True"
     },
     "Conv2D": {
-        " kernel_size": "",
+        "kernel_size": "",
         "activation": "None",
         "activity_regularizer": "None",
         "bias_constraint": "None",
@@ -93,7 +93,7 @@
         "use_bias": "True"
     },
     "Conv2DTranspose": {
-        " kernel_size": "",
+        "kernel_size": "",
         "activation": "None",
         "activity_regularizer": "None",
         "bias_constraint": "None",
@@ -111,7 +111,7 @@
         "use_bias": "True"
     },
     "Conv3D": {
-        " kernel_size": "",
+        "kernel_size": "",
         "activation": "None",
         "activity_regularizer": "None",
         "bias_constraint": "None",
@@ -128,7 +128,7 @@
         "use_bias": "True"
     },
     "Conv3DTranspose": {
-        " kernel_size": "",
+        "kernel_size": "",
         "activation": "None",
         "activity_regularizer": "None",
         "bias_constraint": "None",
@@ -145,7 +145,7 @@
         "use_bias": "True"
     },
     "ConvLSTM2D": {
-        " kernel_size": "",
+        "kernel_size": "",
         "activation": "tanh",
         "activity_regularizer": "None",
         "bias_constraint": "None",
@@ -175,13 +175,13 @@
         "cropping": "(1, 1)"
     },
     "Cropping2D": {
-        " (0, 0))": "",
+        "(0, 0))": "",
         "cropping": "((0, 0)",
         "data_format": "None"
     },
     "Cropping3D": {
-        " (1, 1)": "",
-        " (1, 1))": "",
+        "(1, 1)": "",
+        "(1, 1))": "",
         "cropping": "((1, 1)",
         "data_format": "None"
     },
@@ -259,7 +259,7 @@
         "alpha": "1.0"
     },
     "Embedding": {
-        " output_dim": "",
+        "output_dim": "",
         "activity_regularizer": "None",
         "embeddings_constraint": "None",
         "embeddings_initializer": "uniform",
@@ -396,7 +396,7 @@
         "alpha": "0.3"
     },
     "LocallyConnected1D": {
-        " kernel_size": "",
+        "kernel_size": "",
         "activation": "None",
         "activity_regularizer": "None",
         "bias_constraint": "None",
@@ -412,7 +412,7 @@
         "use_bias": "True"
     },
     "LocallyConnected2D": {
-        " kernel_size": "",
+        "kernel_size": "",
         "activation": "None",
         "activity_regularizer": "None",
         "bias_constraint": "None",
@@ -483,7 +483,7 @@
         "target_shape": ""
     },
     "SeparableConv1D": {
-        " kernel_size": "",
+        "kernel_size": "",
         "activation": "None",
         "activity_regularizer": "None",
         "bias_constraint": "None",
@@ -504,7 +504,7 @@
         "use_bias": "True"
     },
     "SeparableConv2D": {
-        " kernel_size": "",
+        "kernel_size": "",
         "activation": "None",
         "activity_regularizer": "None",
         "bias_constraint": "None",
@@ -619,7 +619,7 @@
         "inputs": ""
     },
     "dot": {
-        " axes": "",
+        "axes": "",
         "inputs": "",
         "normalize": "False"
     },

@@ -48,12 +48,7 @@ $dot-space: 22px;
   background-size: $dot-space $dot-space;
 }
 
-
-.required label {
-    font-weight: bold;
-}
-.required label:after {
-    color: #e32;
-    content: ' *';
-    display:inline;
+/* style all input elements with a required attribute */
+:required {
+  highlight-color: red;
 }

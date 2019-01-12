@@ -142,8 +142,6 @@ export class App extends React.Component {
         var discreteOptionField = false;
         var content;
 
-        console.log(arg)
-
         if (arg.options.length > 0) {
           var options = [];
           for (var j = 0; j < arg.options.length; j++) {
@@ -153,14 +151,16 @@ export class App extends React.Component {
           content = <select 
               name={ selectedNodeArgs[i] } 
               value={ arg.value } 
-              onChange={ this.handleChange }>
+              onChange={ this.handleChange }
+              required={ arg.required } >
             { options }
           </select>;
         } else {
-          content = <input className="form-control mr-sm-2" type="text" 
+          content = <input type="text" 
             name={ selectedNodeArgs[i] } 
             value={ arg.value } 
-            onChange={ this.handleChange } />
+            onChange={ this.handleChange } 
+            required={ true } />
         }
 
         argFields.push(<div>
@@ -237,11 +237,15 @@ export class App extends React.Component {
                 var args = Object.keys(argsToDefault);
 
                 node.args = {};
+                console.log(argDescriptions)
 
                 // argsSplit[0] contains all the required arguments for the layer
                 for (var i = 0; i < args.length; i++) {
                   var arg = args[i];
                   var description = argDescriptions[arg];
+                  console.log(arg)
+                  console.log(description)
+
                   var defaultValue = argsToDefault[arg];
                   var options = this.getArgOptions(description);
 
@@ -257,8 +261,6 @@ export class App extends React.Component {
                   };
                 }
                 
-                console.log(node.args)
-
                 node.x = points.x;
                 node.y = points.y;
                 this.state.diagramEngine
