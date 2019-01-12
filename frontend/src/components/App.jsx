@@ -178,7 +178,7 @@ export class App extends React.Component {
             name={ selectedNodeArgs[i] } 
             value={ arg.value } 
             onChange={ this.handleChange } 
-            required={ true } />
+            required={ arg.required } />
         }
 
         argFields.push(<div>
@@ -262,15 +262,22 @@ export class App extends React.Component {
                   var description = argDescriptions[arg];
                   
                   var defaultValue = argsToDefault[arg];
+                  var required = defaultValue == ""; // required args don't have default
                   var options = this.getArgOptions(description);
 
+                  // if we specify "None", it's either because there's an option of None or it's 
+                  // supposed to be an empty text field (even if not required)
                   if (defaultValue == "None") {
-                    options.insert(0, defaultValue);
+                    if (options.length > 0) {
+                      options.insert(0, defaultValue);
+                    } else {
+                      defaultValue = "";
+                    }
                   }
 
                   node.args[arg] = {
                     description: description,
-                    required: defaultValue == "", // required args don't have default
+                    required: required, 
                     value: defaultValue,
                     options: options
                   };

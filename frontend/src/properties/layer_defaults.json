@@ -335,7 +335,14 @@
     "GlobalMaxPooling3D": {
         "data_format": "None"
     },
-    "Input": {},
+    "Input": {
+        "batch_shape": "None",
+        "dtype": "",
+        "name": "None",
+        "shape": "",
+        "sparse": "False",
+        "tensor": "None"
+    },
     "LSTM": {
         "activation": "tanh",
         "activity_regularizer": "None",
