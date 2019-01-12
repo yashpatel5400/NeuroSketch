@@ -40,6 +40,7 @@ def compile():
 
     # seqential ordering of nodes is its topological sort
     sequential_order = list(nx.topological_sort(G))
+    print(sequential_order)
     
     model = Sequential()
     for node_id in sequential_order:
@@ -47,6 +48,7 @@ def compile():
         for arg in G.node[node_id]["args"]:
             keras_node_args[arg] = G.node[node_id]["args"][arg]["value"]
         name = G.node[node_id]["name"]
+        print(keras_node_args)
         model.add(name_to_layer[name](**keras_node_args))
 
     # # standard optimizer and loss function (assuming categorical data)

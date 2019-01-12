@@ -11,9 +11,6 @@ import argsOptions from '../properties/options.json';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 
-/**
- * @author Dylan Vorster
- */
 export class App extends React.Component {
   constructor(props) {
     super(props);
@@ -28,6 +25,7 @@ export class App extends React.Component {
 
     this.handleClick = this.handleClick.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.toggle = this.toggle.bind(this);
   }
 
@@ -69,8 +67,6 @@ export class App extends React.Component {
       fixedEdges.push([src, dst]);
     }
 
-    console.log(nodeProperties)
-
     var graph = {
       nodes : nodeIds,
       nodeProps : nodeProperties,
@@ -105,6 +101,12 @@ export class App extends React.Component {
     } 
   }
 
+  handleChange(event) {
+    var updatedSelectedNode = this.state.selectedNode;
+    updatedSelectedNode.args[event.target.name].value = event.target.value;
+    this.setState({ selectedNode : updatedSelectedNode });
+  }
+
   render() {
     var argFields = [];
     if (this.state.selectedNode !== undefined) {
@@ -126,9 +128,12 @@ export class App extends React.Component {
               optionFields.push(<option value={ options[j] }>{ options[j] }</option>)
             }
 
-            content = <select name={ selectedNodeArgs[i] } value={ arg.value } onChange={ (event) => { 
-              this.state.selectedNode.args[event.target.name].value = event.target.value 
-            }}>{ optionFields }</select>;
+            content = <select 
+                name={ selectedNodeArgs[i] } 
+                value={ arg.value } 
+                onChange={ this.handleChange }>
+              { optionFields }
+            </select>;
             discreteOptionField = true;
           }
           
@@ -138,9 +143,10 @@ export class App extends React.Component {
         }
 
         if (!discreteOptionField) {
-          content = <input className="form-control mr-sm-2" name={ selectedNodeArgs[i] } type="text" value={ arg.value } onChange={ (event) => { 
-            this.state.selectedNode.args[event.target.name].value = event.target.value 
-          }} />
+          content = <input className="form-control mr-sm-2" type="text" 
+            name={ selectedNodeArgs[i] } 
+            value={ arg.value } 
+            onChange={ this.handleChange } />
         }
 
         argFields.push(<div>
