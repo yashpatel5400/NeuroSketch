@@ -11,6 +11,10 @@ import argsOptions from '../properties/options.json';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 
+Array.prototype.insert = function (index, item) {
+  this.splice(index, 0, item);
+};
+
 export class App extends React.Component {
   constructor(props) {
     super(props);
@@ -239,12 +243,17 @@ export class App extends React.Component {
                   var arg = args[i];
                   var description = argDescriptions[arg];
                   var defaultValue = argsToDefault[arg];
+                  var options = this.getArgOptions(description);
+
+                  if (defaultValue == "None") {
+                    options.insert(0, defaultValue);
+                  }
 
                   node.args[arg] = {
                     description: description,
                     required: defaultValue == "", // required args don't have default
                     value: defaultValue,
-                    options: this.getArgOptions(description)
+                    options: options
                   };
                 }
                 
