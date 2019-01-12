@@ -38,14 +38,14 @@ def get_required_params(url):
         layer_name = header.contents[0]
         cleaned_args_list = code.split(layer_name)[1].strip()[1:-1]
         args_list = split_by_commas_not_in_parens.split(cleaned_args_list)
-        required_args = []
-        optional_args = []
+        args_to_default = {}
         for arg in args_list:
             if "=" in arg:
-                optional_args.append(arg.split("=")[0].strip())
+                arg_name, default_value = arg.split("=")
+                args_to_default[arg_name.strip()] = default_value.strip().replace("'","")
             else:
-                required_args.append(arg.strip())
-        layer_to_args[layer_name] = [required_args, optional_args]
+                args_to_default[arg] = ""
+        layer_to_args[layer_name] = args_to_default
     print("Finished: {}".format(url))
     return layer_to_args
 

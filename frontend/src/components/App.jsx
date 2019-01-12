@@ -5,7 +5,7 @@ import { MDBTooltip, MDBBtn, Navbar, NavbarBrand, NavbarNav, NavItem, FormInline
 import * as SRD from "storm-react-diagrams";
 import $ from "jquery";
 
-import layersToArgSplit from '../properties/arg_split.json';
+import layersToArgDefaults from '../properties/layer_defaults.json';
 import layersToArgs from '../properties/layers.json';
 import argsOptions from '../properties/options.json';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -26,6 +26,7 @@ export class App extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.getArgOptions = this.getArgOptions.bind(this);
     this.toggle = this.toggle.bind(this);
   }
 
@@ -107,6 +108,25 @@ export class App extends React.Component {
     this.setState({ selectedNode : updatedSelectedNode });
   }
 
+  getArgOptions(description) {
+    var fieldsWithOptions = Object.keys(argsOptions);
+    var discreteOptionField = false;
+    var options = [];
+    for (var j = 0; j < fieldsWithOptions.length; j++) {
+      var field = fieldsWithOptions[j];
+      var lowerDescription = description.toLowerCase();
+      if (lowerDescription.indexOf(field) !== -1) {
+        options = Object.keys(argsOptions[field]);
+        discreteOptionField = true;
+      }
+      
+      if (discreteOptionField) {
+        break;
+      }
+    }
+    return options;
+  }
+
   render() {
     var argFields = [];
     if (this.state.selectedNode !== undefined) {
@@ -118,31 +138,21 @@ export class App extends React.Component {
         var discreteOptionField = false;
         var content;
 
-        for (var j = 0; j < fieldsWithOptions.length; j++) {
-          var field = fieldsWithOptions[j];
-          var lowerDescription = arg.description.toLowerCase();
-          if (lowerDescription.indexOf(field) !== -1) {
-            var options = Object.keys(argsOptions[field]);
-            var optionFields = [];
-            for (var j = 0; j < options.length; j++) {
-              optionFields.push(<option value={ options[j] }>{ options[j] }</option>)
-            }
+        console.log(arg)
 
-            content = <select 
-                name={ selectedNodeArgs[i] } 
-                value={ arg.value } 
-                onChange={ this.handleChange }>
-              { optionFields }
-            </select>;
-            discreteOptionField = true;
+        if (arg.options.length > 0) {
+          var options = [];
+          for (var j = 0; j < arg.options.length; j++) {
+            options.push(<option value={ arg.options[j] }>{ arg.options[j] }</option>)
           }
-          
-          if (discreteOptionField) {
-            break;
-          }
-        }
 
-        if (!discreteOptionField) {
+          content = <select 
+              name={ selectedNodeArgs[i] } 
+              value={ arg.value } 
+              onChange={ this.handleChange }>
+            { options }
+          </select>;
+        } else {
           content = <input className="form-control mr-sm-2" type="text" 
             name={ selectedNodeArgs[i] } 
             value={ arg.value } 
@@ -219,40 +229,27 @@ export class App extends React.Component {
                 var points = this.state.diagramEngine.getRelativeMousePoint(event);
 
                 var argDescriptions = layersToArgs[data.name];
-                var argsSplit = layersToArgSplit[data.name];
-                
+                var argsToDefault = layersToArgDefaults[data.name];
+                var args = Object.keys(argsToDefault);
+
                 node.args = {};
 
                 // argsSplit[0] contains all the required arguments for the layer
-                for (var i = 0; i < argsSplit[0].length; i++) {
-                  var arg = argsSplit[0][i];
-                  node.args[arg] = {
-                    description: argDescriptions[arg],
-                    required: true,
-                    value: ""
-                  };
-                }
-
-                // argsSplit[1] contains all the optional arguments
-                for (i = 0; i < argsSplit[1].length; i++) {
-                  arg = argsSplit[1][i];
+                for (var i = 0; i < args.length; i++) {
+                  var arg = args[i];
                   var description = argDescriptions[arg];
-                  var lowerDescription = description.toLowerCase();
-                  var defaultInstance = lowerDescription.indexOf("default");
-
-                  var defaultValue = "";
-                  if (defaultInstance !== -1) {
-                    var uncleanDefaultValue = lowerDescription.substr(defaultInstance).trim();
-                    defaultValue = uncleanDefaultValue.split(" ")[0];
-                  }
+                  var defaultValue = argsToDefault[arg];
 
                   node.args[arg] = {
                     description: description,
-                    required: false,
-                    value: defaultValue
+                    required: defaultValue == "", // required args don't have default
+                    value: defaultValue,
+                    options: this.getArgOptions(description)
                   };
                 }
                 
+                console.log(node.args)
+
                 node.x = points.x;
                 node.y = points.y;
                 this.state.diagramEngine

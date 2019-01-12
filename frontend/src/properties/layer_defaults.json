@@ -1,0 +1,635 @@
+{
+    "Activation": {
+        "activation": ""
+    },
+    "ActivityRegularization": {
+        "l1": "0.0",
+        "l2": "0.0"
+    },
+    "Add": {
+        "": ""
+    },
+    "AlphaDropout": {
+        "noise_shape": "None",
+        "rate": "",
+        "seed": "None"
+    },
+    "Average": {
+        "": ""
+    },
+    "AveragePooling1D": {
+        "data_format": "channels_last",
+        "padding": "valid",
+        "pool_size": "2",
+        "strides": "None"
+    },
+    "AveragePooling2D": {
+        "data_format": "None",
+        "padding": "valid",
+        "pool_size": "(2, 2)",
+        "strides": "None"
+    },
+    "AveragePooling3D": {
+        "data_format": "None",
+        "padding": "valid",
+        "pool_size": "(2, 2, 2)",
+        "strides": "None"
+    },
+    "BatchNormalization": {
+        "axis": "-1",
+        "beta_constraint": "None",
+        "beta_initializer": "zeros",
+        "beta_regularizer": "None",
+        "center": "True",
+        "epsilon": "0.001",
+        "gamma_constraint": "None",
+        "gamma_initializer": "ones",
+        "gamma_regularizer": "None",
+        "momentum": "0.99",
+        "moving_mean_initializer": "zeros",
+        "moving_variance_initializer": "ones",
+        "scale": "True"
+    },
+    "Bidirectional": {
+        "layer": "",
+        "merge_mode": "concat",
+        "weights": "None"
+    },
+    "Concatenate": {
+        "axis": "-1"
+    },
+    "Conv1D": {
+        " kernel_size": "",
+        "activation": "None",
+        "activity_regularizer": "None",
+        "bias_constraint": "None",
+        "bias_initializer": "zeros",
+        "bias_regularizer": "None",
+        "data_format": "channels_last",
+        "dilation_rate": "1",
+        "filters": "",
+        "kernel_constraint": "None",
+        "kernel_initializer": "glorot_uniform",
+        "kernel_regularizer": "None",
+        "padding": "valid",
+        "strides": "1",
+        "use_bias": "True"
+    },
+    "Conv2D": {
+        " kernel_size": "",
+        "activation": "None",
+        "activity_regularizer": "None",
+        "bias_constraint": "None",
+        "bias_initializer": "zeros",
+        "bias_regularizer": "None",
+        "data_format": "None",
+        "dilation_rate": "(1, 1)",
+        "filters": "",
+        "kernel_constraint": "None",
+        "kernel_initializer": "glorot_uniform",
+        "kernel_regularizer": "None",
+        "padding": "valid",
+        "strides": "(1, 1)",
+        "use_bias": "True"
+    },
+    "Conv2DTranspose": {
+        " kernel_size": "",
+        "activation": "None",
+        "activity_regularizer": "None",
+        "bias_constraint": "None",
+        "bias_initializer": "zeros",
+        "bias_regularizer": "None",
+        "data_format": "None",
+        "dilation_rate": "(1, 1)",
+        "filters": "",
+        "kernel_constraint": "None",
+        "kernel_initializer": "glorot_uniform",
+        "kernel_regularizer": "None",
+        "output_padding": "None",
+        "padding": "valid",
+        "strides": "(1, 1)",
+        "use_bias": "True"
+    },
+    "Conv3D": {
+        " kernel_size": "",
+        "activation": "None",
+        "activity_regularizer": "None",
+        "bias_constraint": "None",
+        "bias_initializer": "zeros",
+        "bias_regularizer": "None",
+        "data_format": "None",
+        "dilation_rate": "(1, 1, 1)",
+        "filters": "",
+        "kernel_constraint": "None",
+        "kernel_initializer": "glorot_uniform",
+        "kernel_regularizer": "None",
+        "padding": "valid",
+        "strides": "(1, 1, 1)",
+        "use_bias": "True"
+    },
+    "Conv3DTranspose": {
+        " kernel_size": "",
+        "activation": "None",
+        "activity_regularizer": "None",
+        "bias_constraint": "None",
+        "bias_initializer": "zeros",
+        "bias_regularizer": "None",
+        "data_format": "None",
+        "filters": "",
+        "kernel_constraint": "None",
+        "kernel_initializer": "glorot_uniform",
+        "kernel_regularizer": "None",
+        "output_padding": "None",
+        "padding": "valid",
+        "strides": "(1, 1, 1)",
+        "use_bias": "True"
+    },
+    "ConvLSTM2D": {
+        " kernel_size": "",
+        "activation": "tanh",
+        "activity_regularizer": "None",
+        "bias_constraint": "None",
+        "bias_initializer": "zeros",
+        "bias_regularizer": "None",
+        "data_format": "None",
+        "dilation_rate": "(1, 1)",
+        "dropout": "0.0",
+        "filters": "",
+        "go_backwards": "False",
+        "kernel_constraint": "None",
+        "kernel_initializer": "glorot_uniform",
+        "kernel_regularizer": "None",
+        "padding": "valid",
+        "recurrent_activation": "hard_sigmoid",
+        "recurrent_constraint": "None",
+        "recurrent_dropout": "0.0",
+        "recurrent_initializer": "orthogonal",
+        "recurrent_regularizer": "None",
+        "return_sequences": "False",
+        "stateful": "False",
+        "strides": "(1, 1)",
+        "unit_forget_bias": "True",
+        "use_bias": "True"
+    },
+    "Cropping1D": {
+        "cropping": "(1, 1)"
+    },
+    "Cropping2D": {
+        " (0, 0))": "",
+        "cropping": "((0, 0)",
+        "data_format": "None"
+    },
+    "Cropping3D": {
+        " (1, 1)": "",
+        " (1, 1))": "",
+        "cropping": "((1, 1)",
+        "data_format": "None"
+    },
+    "CuDNNGRU": {
+        "activity_regularizer": "None",
+        "bias_constraint": "None",
+        "bias_initializer": "zeros",
+        "bias_regularizer": "None",
+        "kernel_constraint": "None",
+        "kernel_initializer": "glorot_uniform",
+        "kernel_regularizer": "None",
+        "recurrent_constraint": "None",
+        "recurrent_initializer": "orthogonal",
+        "recurrent_regularizer": "None",
+        "return_sequences": "False",
+        "return_state": "False",
+        "stateful": "False",
+        "units": ""
+    },
+    "CuDNNLSTM": {
+        "activity_regularizer": "None",
+        "bias_constraint": "None",
+        "bias_initializer": "zeros",
+        "bias_regularizer": "None",
+        "kernel_constraint": "None",
+        "kernel_initializer": "glorot_uniform",
+        "kernel_regularizer": "None",
+        "recurrent_constraint": "None",
+        "recurrent_initializer": "orthogonal",
+        "recurrent_regularizer": "None",
+        "return_sequences": "False",
+        "return_state": "False",
+        "stateful": "False",
+        "unit_forget_bias": "True",
+        "units": ""
+    },
+    "Dense": {
+        "activation": "None",
+        "activity_regularizer": "None",
+        "bias_constraint": "None",
+        "bias_initializer": "zeros",
+        "bias_regularizer": "None",
+        "kernel_constraint": "None",
+        "kernel_initializer": "glorot_uniform",
+        "kernel_regularizer": "None",
+        "units": "",
+        "use_bias": "True"
+    },
+    "DepthwiseConv2D": {
+        "activation": "None",
+        "activity_regularizer": "None",
+        "bias_constraint": "None",
+        "bias_initializer": "zeros",
+        "bias_regularizer": "None",
+        "data_format": "None",
+        "depth_multiplier": "1",
+        "depthwise_constraint": "None",
+        "depthwise_initializer": "glorot_uniform",
+        "depthwise_regularizer": "None",
+        "kernel_size": "",
+        "padding": "valid",
+        "strides": "(1, 1)",
+        "use_bias": "True"
+    },
+    "Dot": {
+        "axes": "",
+        "normalize": "False"
+    },
+    "Dropout": {
+        "noise_shape": "None",
+        "rate": "",
+        "seed": "None"
+    },
+    "ELU": {
+        "alpha": "1.0"
+    },
+    "Embedding": {
+        " output_dim": "",
+        "activity_regularizer": "None",
+        "embeddings_constraint": "None",
+        "embeddings_initializer": "uniform",
+        "embeddings_regularizer": "None",
+        "input_dim": "",
+        "input_length": "None",
+        "mask_zero": "False"
+    },
+    "Flatten": {
+        "data_format": "None"
+    },
+    "GRU": {
+        "activation": "tanh",
+        "activity_regularizer": "None",
+        "bias_constraint": "None",
+        "bias_initializer": "zeros",
+        "bias_regularizer": "None",
+        "dropout": "0.0",
+        "go_backwards": "False",
+        "implementation": "1",
+        "kernel_constraint": "None",
+        "kernel_initializer": "glorot_uniform",
+        "kernel_regularizer": "None",
+        "recurrent_activation": "hard_sigmoid",
+        "recurrent_constraint": "None",
+        "recurrent_dropout": "0.0",
+        "recurrent_initializer": "orthogonal",
+        "recurrent_regularizer": "None",
+        "reset_after": "False",
+        "return_sequences": "False",
+        "return_state": "False",
+        "stateful": "False",
+        "units": "",
+        "unroll": "False",
+        "use_bias": "True"
+    },
+    "GRUCell": {
+        "activation": "tanh",
+        "bias_constraint": "None",
+        "bias_initializer": "zeros",
+        "bias_regularizer": "None",
+        "dropout": "0.0",
+        "implementation": "1",
+        "kernel_constraint": "None",
+        "kernel_initializer": "glorot_uniform",
+        "kernel_regularizer": "None",
+        "recurrent_activation": "hard_sigmoid",
+        "recurrent_constraint": "None",
+        "recurrent_dropout": "0.0",
+        "recurrent_initializer": "orthogonal",
+        "recurrent_regularizer": "None",
+        "reset_after": "False",
+        "units": "",
+        "use_bias": "True"
+    },
+    "GaussianDropout": {
+        "rate": ""
+    },
+    "GaussianNoise": {
+        "stddev": ""
+    },
+    "GlobalAveragePooling1D": {
+        "data_format": "channels_last"
+    },
+    "GlobalAveragePooling2D": {
+        "data_format": "None"
+    },
+    "GlobalAveragePooling3D": {
+        "data_format": "None"
+    },
+    "GlobalMaxPooling1D": {
+        "data_format": "channels_last"
+    },
+    "GlobalMaxPooling2D": {
+        "data_format": "None"
+    },
+    "GlobalMaxPooling3D": {
+        "data_format": "None"
+    },
+    "Input": {
+        "": ""
+    },
+    "LSTM": {
+        "activation": "tanh",
+        "activity_regularizer": "None",
+        "bias_constraint": "None",
+        "bias_initializer": "zeros",
+        "bias_regularizer": "None",
+        "dropout": "0.0",
+        "go_backwards": "False",
+        "implementation": "1",
+        "kernel_constraint": "None",
+        "kernel_initializer": "glorot_uniform",
+        "kernel_regularizer": "None",
+        "recurrent_activation": "hard_sigmoid",
+        "recurrent_constraint": "None",
+        "recurrent_dropout": "0.0",
+        "recurrent_initializer": "orthogonal",
+        "recurrent_regularizer": "None",
+        "return_sequences": "False",
+        "return_state": "False",
+        "stateful": "False",
+        "unit_forget_bias": "True",
+        "units": "",
+        "unroll": "False",
+        "use_bias": "True"
+    },
+    "LSTMCell": {
+        "activation": "tanh",
+        "bias_constraint": "None",
+        "bias_initializer": "zeros",
+        "bias_regularizer": "None",
+        "dropout": "0.0",
+        "implementation": "1",
+        "kernel_constraint": "None",
+        "kernel_initializer": "glorot_uniform",
+        "kernel_regularizer": "None",
+        "recurrent_activation": "hard_sigmoid",
+        "recurrent_constraint": "None",
+        "recurrent_dropout": "0.0",
+        "recurrent_initializer": "orthogonal",
+        "recurrent_regularizer": "None",
+        "unit_forget_bias": "True",
+        "units": "",
+        "use_bias": "True"
+    },
+    "Lambda": {
+        "arguments": "None",
+        "function": "",
+        "mask": "None",
+        "output_shape": "None"
+    },
+    "LeakyReLU": {
+        "alpha": "0.3"
+    },
+    "LocallyConnected1D": {
+        " kernel_size": "",
+        "activation": "None",
+        "activity_regularizer": "None",
+        "bias_constraint": "None",
+        "bias_initializer": "zeros",
+        "bias_regularizer": "None",
+        "data_format": "None",
+        "filters": "",
+        "kernel_constraint": "None",
+        "kernel_initializer": "glorot_uniform",
+        "kernel_regularizer": "None",
+        "padding": "valid",
+        "strides": "1",
+        "use_bias": "True"
+    },
+    "LocallyConnected2D": {
+        " kernel_size": "",
+        "activation": "None",
+        "activity_regularizer": "None",
+        "bias_constraint": "None",
+        "bias_initializer": "zeros",
+        "bias_regularizer": "None",
+        "data_format": "None",
+        "filters": "",
+        "kernel_constraint": "None",
+        "kernel_initializer": "glorot_uniform",
+        "kernel_regularizer": "None",
+        "padding": "valid",
+        "strides": "(1, 1)",
+        "use_bias": "True"
+    },
+    "Masking": {
+        "mask_value": "0.0"
+    },
+    "MaxPooling1D": {
+        "data_format": "channels_last",
+        "padding": "valid",
+        "pool_size": "2",
+        "strides": "None"
+    },
+    "MaxPooling2D": {
+        "data_format": "None",
+        "padding": "valid",
+        "pool_size": "(2, 2)",
+        "strides": "None"
+    },
+    "MaxPooling3D": {
+        "data_format": "None",
+        "padding": "valid",
+        "pool_size": "(2, 2, 2)",
+        "strides": "None"
+    },
+    "Maximum": {
+        "": ""
+    },
+    "Multiply": {
+        "": ""
+    },
+    "PReLU": {
+        "alpha_constraint": "None",
+        "alpha_initializer": "zeros",
+        "alpha_regularizer": "None",
+        "shared_axes": "None"
+    },
+    "Permute": {
+        "dims": ""
+    },
+    "RNN": {
+        "cell": "",
+        "go_backwards": "False",
+        "return_sequences": "False",
+        "return_state": "False",
+        "stateful": "False",
+        "unroll": "False"
+    },
+    "ReLU": {
+        "max_value": "None",
+        "negative_slope": "0.0",
+        "threshold": "0.0"
+    },
+    "RepeatVector": {
+        "n": ""
+    },
+    "Reshape": {
+        "target_shape": ""
+    },
+    "SeparableConv1D": {
+        " kernel_size": "",
+        "activation": "None",
+        "activity_regularizer": "None",
+        "bias_constraint": "None",
+        "bias_initializer": "zeros",
+        "bias_regularizer": "None",
+        "data_format": "channels_last",
+        "depth_multiplier": "1",
+        "depthwise_constraint": "None",
+        "depthwise_initializer": "glorot_uniform",
+        "depthwise_regularizer": "None",
+        "dilation_rate": "1",
+        "filters": "",
+        "padding": "valid",
+        "pointwise_constraint": "None",
+        "pointwise_initializer": "glorot_uniform",
+        "pointwise_regularizer": "None",
+        "strides": "1",
+        "use_bias": "True"
+    },
+    "SeparableConv2D": {
+        " kernel_size": "",
+        "activation": "None",
+        "activity_regularizer": "None",
+        "bias_constraint": "None",
+        "bias_initializer": "zeros",
+        "bias_regularizer": "None",
+        "data_format": "None",
+        "depth_multiplier": "1",
+        "depthwise_constraint": "None",
+        "depthwise_initializer": "glorot_uniform",
+        "depthwise_regularizer": "None",
+        "dilation_rate": "(1, 1)",
+        "filters": "",
+        "padding": "valid",
+        "pointwise_constraint": "None",
+        "pointwise_initializer": "glorot_uniform",
+        "pointwise_regularizer": "None",
+        "strides": "(1, 1)",
+        "use_bias": "True"
+    },
+    "SimpleRNN": {
+        "activation": "tanh",
+        "activity_regularizer": "None",
+        "bias_constraint": "None",
+        "bias_initializer": "zeros",
+        "bias_regularizer": "None",
+        "dropout": "0.0",
+        "go_backwards": "False",
+        "kernel_constraint": "None",
+        "kernel_initializer": "glorot_uniform",
+        "kernel_regularizer": "None",
+        "recurrent_constraint": "None",
+        "recurrent_dropout": "0.0",
+        "recurrent_initializer": "orthogonal",
+        "recurrent_regularizer": "None",
+        "return_sequences": "False",
+        "return_state": "False",
+        "stateful": "False",
+        "units": "",
+        "unroll": "False",
+        "use_bias": "True"
+    },
+    "SimpleRNNCell": {
+        "activation": "tanh",
+        "bias_constraint": "None",
+        "bias_initializer": "zeros",
+        "bias_regularizer": "None",
+        "dropout": "0.0",
+        "kernel_constraint": "None",
+        "kernel_initializer": "glorot_uniform",
+        "kernel_regularizer": "None",
+        "recurrent_constraint": "None",
+        "recurrent_dropout": "0.0",
+        "recurrent_initializer": "orthogonal",
+        "recurrent_regularizer": "None",
+        "units": "",
+        "use_bias": "True"
+    },
+    "Softmax": {
+        "axis": "-1"
+    },
+    "SpatialDropout1D": {
+        "rate": ""
+    },
+    "SpatialDropout2D": {
+        "data_format": "None",
+        "rate": ""
+    },
+    "SpatialDropout3D": {
+        "data_format": "None",
+        "rate": ""
+    },
+    "Subtract": {
+        "": ""
+    },
+    "ThresholdedReLU": {
+        "theta": "1.0"
+    },
+    "TimeDistributed": {
+        "layer": ""
+    },
+    "UpSampling1D": {
+        "size": "2"
+    },
+    "UpSampling2D": {
+        "data_format": "None",
+        "interpolation": "nearest",
+        "size": "(2, 2)"
+    },
+    "UpSampling3D": {
+        "data_format": "None",
+        "size": "(2, 2, 2)"
+    },
+    "ZeroPadding1D": {
+        "padding": "1"
+    },
+    "ZeroPadding2D": {
+        "data_format": "None",
+        "padding": "(1, 1)"
+    },
+    "ZeroPadding3D": {
+        "data_format": "None",
+        "padding": "(1, 1, 1)"
+    },
+    "add": {
+        "inputs": ""
+    },
+    "average": {
+        "inputs": ""
+    },
+    "concatenate": {
+        "axis": "-1",
+        "inputs": ""
+    },
+    "dot": {
+        " axes": "",
+        "inputs": "",
+        "normalize": "False"
+    },
+    "maximum": {
+        "inputs": ""
+    },
+    "multiply": {
+        "inputs": ""
+    },
+    "subtract": {
+        "inputs": ""
+    }
+}
