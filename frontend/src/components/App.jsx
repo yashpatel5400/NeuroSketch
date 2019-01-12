@@ -15,6 +15,7 @@ import {
   MDBCardHeader,
   MDBInput
 } from "mdbreact";
+import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
 
 import layersToArgDefaults from '../properties/layer_defaults.json';
 import layersToArgs from '../properties/layers.json';
@@ -34,13 +35,15 @@ export class App extends React.Component {
       diagramEngine: new SRD.DiagramEngine(),
 
       argsPanel: false,
-      selectedNode: undefined
+      selectedNode: undefined,
+      exportModelType: "Caffe"
     };
     this.state.diagramEngine.installDefaultFactories();
 
     this.handleClick = this.handleClick.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleModelSelect = this.handleModelSelect.bind(this);
     this.getArgOptions = this.getArgOptions.bind(this);
     this.toggle = this.toggle.bind(this);
   }
@@ -87,6 +90,7 @@ export class App extends React.Component {
       nodes : nodeIds,
       nodeProps : nodeProperties,
       edges : fixedEdges,
+      exportModelType: this.state.exportModelType
     }
     return graph;
   }
@@ -121,6 +125,10 @@ export class App extends React.Component {
     var updatedSelectedNode = this.state.selectedNode;
     updatedSelectedNode.args[event.target.name].value = event.target.value;
     this.setState({ selectedNode : updatedSelectedNode });
+  }
+
+  handleModelSelect(event) {
+    this.setState({ exportModelType : event.target.name });
   }
 
   getArgOptions(description) {
@@ -226,7 +234,20 @@ export class App extends React.Component {
                 Compile
               </MDBBtn>
 
-              <MDBBtn outline>Load Model</MDBBtn>
+              <MDBDropdown>
+                <MDBDropdownToggle outline caret color="default" onChange={this.handleModelSelect}>
+                  { this.state.exportModelType }
+                </MDBDropdownToggle>
+                <MDBDropdownMenu basic>
+                  <MDBDropdownItem name="Tensorflow" onClick={this.handleModelSelect}>Tensorflow</MDBDropdownItem>
+                  <MDBDropdownItem name="CNTK" onClick={this.handleModelSelect}>CNTK</MDBDropdownItem>
+                  <MDBDropdownItem name="Keras" onClick={this.handleModelSelect}>Keras</MDBDropdownItem>
+                  <MDBDropdownItem name="Caffe" onClick={this.handleModelSelect}>Caffe</MDBDropdownItem>
+                  <MDBDropdownItem name="PyTorch" onClick={this.handleModelSelect}>PyTorch</MDBDropdownItem>
+                  <MDBDropdownItem name="MXNet" onClick={this.handleModelSelect}>MXNet</MDBDropdownItem>
+                  <MDBDropdownItem name="CoreML" onClick={this.handleModelSelect}>CoreML</MDBDropdownItem>
+                </MDBDropdownMenu>
+              </MDBDropdown>
             </NavItem>
           </NavbarNav>
         </Navbar>
