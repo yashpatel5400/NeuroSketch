@@ -40,15 +40,29 @@ def compile():
 
     # seqential ordering of nodes is its topological sort
     sequential_order = list(nx.topological_sort(G))
-    print(sequential_order)
     
     model = Sequential()
     for node_id in sequential_order:
         keras_node_args = {}
         for arg in G.node[node_id]["args"]:
-            keras_node_args[arg] = G.node[node_id]["args"][arg]["value"]
+            # need to determine how to interpret ajax args for keras layers
+            description = G.node[node_id]["args"][arg]["description"].lower()
+            if "float" in description:
+                arg_type = float
+            elif "integer" in description:
+                arg_type = int
+            elif "boolean" in description:
+                arg_type = bool
+            else:
+                arg_type = str
+
+            raw_arg_value = G.node[node_id]["args"][arg]["value"]
+            if G.node[node_id]["args"][arg]["value"] == "None":
+                arg_value = None
+            else:
+                arg_value = arg_type(raw_arg_value)
+            keras_node_args[arg] = arg_value
         name = G.node[node_id]["name"]
-        print(keras_node_args)
         model.add(name_to_layer[name](**keras_node_args))
 
     # # standard optimizer and loss function (assuming categorical data)
