@@ -6,17 +6,13 @@
         "l1": "0.0",
         "l2": "0.0"
     },
-    "Add": {
-        "": ""
-    },
+    "Add": {},
     "AlphaDropout": {
         "noise_shape": "None",
         "rate": "",
         "seed": "None"
     },
-    "Average": {
-        "": ""
-    },
+    "Average": {},
     "AveragePooling1D": {
         "data_format": "channels_last",
         "padding": "valid",
@@ -339,9 +335,7 @@
     "GlobalMaxPooling3D": {
         "data_format": "None"
     },
-    "Input": {
-        "": ""
-    },
+    "Input": {},
     "LSTM": {
         "activation": "tanh",
         "activity_regularizer": "None",
@@ -448,12 +442,8 @@
         "pool_size": "(2, 2, 2)",
         "strides": "None"
     },
-    "Maximum": {
-        "": ""
-    },
-    "Multiply": {
-        "": ""
-    },
+    "Maximum": {},
+    "Multiply": {},
     "PReLU": {
         "alpha_constraint": "None",
         "alpha_initializer": "zeros",
@@ -576,9 +566,7 @@
         "data_format": "None",
         "rate": ""
     },
-    "Subtract": {
-        "": ""
-    },
+    "Subtract": {},
     "ThresholdedReLU": {
         "theta": "1.0"
     },

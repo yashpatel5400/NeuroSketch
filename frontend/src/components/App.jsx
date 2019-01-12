@@ -167,7 +167,14 @@ export class App extends React.Component {
             { options }
           </select>;
         } else {
-          content = <input type="text" 
+          var inputType = "text";
+          if (arg.description.indexOf("float") != -1 ||
+              arg.description.indexOf("integer") != -1 ||
+              arg.description.indexOf("number") != -1) {
+            inputType = "number";
+          }
+          content = <input
+            type={ inputType }
             name={ selectedNodeArgs[i] } 
             value={ arg.value } 
             onChange={ this.handleChange } 
@@ -248,7 +255,7 @@ export class App extends React.Component {
                 var args = Object.keys(argsToDefault);
 
                 node.args = {};
-                
+
                 // argsSplit[0] contains all the required arguments for the layer
                 for (var i = 0; i < args.length; i++) {
                   var arg = args[i];
