@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 import json
+import subprocess
 import networkx as nx
 
 import keras.optimizers
@@ -23,7 +24,7 @@ def convert(model, df):
         --outputModel ./model_{}""".format(df, df)
     subprocess.Popen(command, shell=True)
 
-@app.route('/compile', methods=['GET','POST'])
+@app.route('/compile', methods=['POST'])
 def compile():
     raw_graph_data = request.get_data()
     raw_graph = json.loads(raw_graph_data.decode('utf-8'))
@@ -42,7 +43,7 @@ def compile():
     sequential_order = list(nx.topological_sort(G))
     
     model = Sequential()
-    for node_id in sequential_order:
+    for i, node_id in enumerate(sequential_order):
         keras_node_args = {}
         for arg in G.node[node_id]["args"]:
             # need to determine how to interpret ajax args for keras layers
@@ -63,20 +64,19 @@ def compile():
                 arg_value = arg_type(raw_arg_value)
             keras_node_args[arg] = arg_value
         name = G.node[node_id]["name"]
+
+        # need to specify input dimension for the first layer
+        if i == 0:
+            keras_node_args["input_shape"] = (784,)
         model.add(name_to_layer[name](**keras_node_args))
 
     # # standard optimizer and loss function (assuming categorical data)
-    # opt = keras.optimizers.rmsprop(lr=0.0001, decay=1e-6)
-    # model.compile(loss='categorical_crossentropy',
-    #               optimizer=opt,
-    #               metrics=['accuracy'])
-    # convert(model, "tensorflow")
-
-    # draws the graph (for debugging purposes)
-    # nx.draw_networkx(G)
-    # plt.savefig("test.png")
-    # plt.clf()
-
+    opt = keras.optimizers.rmsprop(lr=0.0001, decay=1e-6)
+    model.compile(loss='categorical_crossentropy',
+                  optimizer=opt,
+                  metrics=['accuracy'])
+    
+    convert(model, "tensorflow")
 
 if __name__ == '__main__':
     app.run()
