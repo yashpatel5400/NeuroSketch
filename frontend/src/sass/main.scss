@@ -48,7 +48,8 @@ $dot-space: 22px;
   background-size: $dot-space $dot-space;
 }
 
-/* style all input elements with a required attribute */
+
 :required {
-  highlight-color: red;
+  border-color: red;
+  border-style: solid;
 }

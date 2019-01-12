@@ -4,6 +4,17 @@ import { DefaultNodeModel, DiagramWidget } from "storm-react-diagrams";
 import { MDBTooltip, MDBBtn, Navbar, NavbarBrand, NavbarNav, NavItem, FormInline, ModalHeader, Modal } from "mdbreact";
 import * as SRD from "storm-react-diagrams";
 import $ from "jquery";
+import {
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+  MDBCard,
+  MDBCardBody,
+  MDBModalFooter,
+  MDBIcon,
+  MDBCardHeader,
+  MDBInput
+} from "mdbreact";
 
 import layersToArgDefaults from '../properties/layer_defaults.json';
 import layersToArgs from '../properties/layers.json';
@@ -237,15 +248,12 @@ export class App extends React.Component {
                 var args = Object.keys(argsToDefault);
 
                 node.args = {};
-                console.log(argDescriptions)
-
+                
                 // argsSplit[0] contains all the required arguments for the layer
                 for (var i = 0; i < args.length; i++) {
                   var arg = args[i];
                   var description = argDescriptions[arg];
-                  console.log(arg)
-                  console.log(description)
-
+                  
                   var defaultValue = argsToDefault[arg];
                   var options = this.getArgOptions(description);
 
@@ -278,12 +286,24 @@ export class App extends React.Component {
         </div>
 
         <Modal isOpen={ this.state.argsPanel } toggle={() => this.toggle()} fullHeight position="right">
-          <ModalHeader toggle={() => this.toggle()}>{ this.state.selectedNodeType }</ModalHeader>
-          <FormInline waves>
-            <div className="md-form my-0">
-              { argFields }
-            </div>
-          </FormInline>
+          <MDBRow>
+            <MDBCol md="12">
+              <MDBCard>
+                <MDBCardBody>
+                  <form>
+                    <div className="grey-text">
+                      { argFields }
+                    </div>
+                  </form>
+                </MDBCardBody>
+
+                <MDBModalFooter>
+                  <MDBBtn className="mb-6"> Save </MDBBtn>
+                  <MDBBtn className="mb-6" onClick={ this.toggle }> Close </MDBBtn>
+                </MDBModalFooter>
+              </MDBCard>
+            </MDBCol>
+          </MDBRow>
         </Modal>
       </div>
     );
