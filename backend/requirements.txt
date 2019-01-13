@@ -1,10 +1,12 @@
+gunicorn
+setuptools
 flask
 networkx
-gunicorn
 tensorflow
 cntk
 keras
 caffe
-pytorch
+torch
+torchvision
 mxnet
 coreml

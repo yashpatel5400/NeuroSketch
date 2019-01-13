@@ -7,4 +7,4 @@ rm -rf static/
 mv build/static .
 mv build/index.html templates/
 rm -rf build/
-python3 app.py
+python3.7 app.py

@@ -1,4 +1,5 @@
-*.h5
+backend/models/*
+!backend/models/.gitkeep
 
 .DS_Store
 

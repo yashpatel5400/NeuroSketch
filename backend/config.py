@@ -9,3 +9,6 @@ DEBUG = True
 # Secret key for session management. You can generate random strings here:
 # https://randomkeygen.com/
 SECRET_KEY = 'my precious'
+
+# Folder where models are saved to disk (server-side)
+UPLOAD_FOLDER = 'models'

@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 import json
+import os
 import subprocess
 import networkx as nx
 
@@ -16,12 +17,15 @@ def home():
     return render_template('index.html')
 
 def convert(model, df):
-    model.save("./model.h5")
-    command = """mmconvert \
-        --srcFramework keras \
-        --inputWeight ./model.h5 \
-        --dstFramework {} \
-        --outputModel ./model_{}""".format(df, df)
+    model_dir = os.path.join(os.path.dirname(__file__), app.config['UPLOAD_FOLDER'])
+    keras_path = os.path.join(model_dir, "model.h5")
+    model.save(keras_path)
+    command = ("mmconvert "
+        f"--srcFramework keras "
+        f"--inputWeight {keras_path} "
+        f"--dstFramework {df} "
+        f"--outputModel {model_dir}/model_{df}"
+    )
     subprocess.Popen(command, shell=True)
 
 @app.route('/compile', methods=['POST'])
