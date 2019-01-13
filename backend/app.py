@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_file
 import json
 import os
 import subprocess
@@ -84,6 +84,16 @@ def compile():
     convert(model, export_type)
     keras.backend.clear_session() # ignoring this causes crash in consecutive runs
     return render_template('index.html')
+
+@app.route("/download/<model_type>", methods=['POST'])
+def download_model(model_type=None):
+    model_dir = os.path.join(os.path.dirname(__file__), app.config['UPLOAD_FOLDER'])
+    path = os.path.join(model_dir, f"model_{model_type}")
+    print(path)
+    if model_type is None:
+        self.Error(400)
+    print("??")
+    return send_file(path, as_attachment=False)
 
 if __name__ == '__main__':
     app.run()

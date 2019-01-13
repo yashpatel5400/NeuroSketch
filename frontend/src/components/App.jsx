@@ -236,6 +236,10 @@ export class App extends React.Component {
                 Compile
               </MDBBtn>
 
+              <form action={`/download/${this.state.exportModelType}`} method="POST">
+                <input type="submit" value="Submit" />
+              </form>
+
               <MDBDropdown>
                 <MDBDropdownToggle outline caret color="default" onChange={this.handleModelSelect}>
                   { this.state.exportModelType }
