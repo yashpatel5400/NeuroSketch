@@ -82,6 +82,8 @@ def compile():
                   metrics=['accuracy'])
     
     convert(model, export_type)
+    keras.backend.clear_session() # ignoring this causes crash in consecutive runs
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run()
