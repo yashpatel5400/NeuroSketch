@@ -69,7 +69,7 @@ def compile():
                 arg_value = arg_type(raw_arg_value)
             keras_node_args[arg] = arg_value
         name = G.node[node_id]["name"]
-
+        
         # need to specify input dimension for the first layer
         if i == 0:
             keras_node_args["input_shape"] = (784,)

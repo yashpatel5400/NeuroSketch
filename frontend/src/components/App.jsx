@@ -74,7 +74,7 @@ export class App extends React.Component {
       // editor allows drawing edges from in -> out or out -> in, so we account for both
       var srcLabel = edges[edgeIds[i]].sourcePort.label;
       var src, dst;
-      if (srcLabel === "In") {
+      if (srcLabel === "Out") {
         src = edges[edgeIds[i]].sourcePort.parent.id;
         dst = edges[edgeIds[i]].targetPort.parent.id;
       } else {
