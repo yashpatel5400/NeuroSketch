@@ -1,5 +1,10 @@
 flask
 networkx
-tensorflow
-keras
 gunicorn
+tensorflow
+cntk
+keras
+caffe
+pytorch
+mxnet
+coreml
