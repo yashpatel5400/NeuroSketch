@@ -89,10 +89,8 @@ def compile():
 def download_model(model_type=None):
     model_dir = os.path.join(os.path.dirname(__file__), app.config['UPLOAD_FOLDER'])
     path = os.path.join(model_dir, f"model_{model_type}")
-    print(path)
     if model_type is None:
         self.Error(400)
-    print("??")
     return send_file(path, as_attachment=False)
 
 if __name__ == '__main__':

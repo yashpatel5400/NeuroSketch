@@ -237,7 +237,7 @@ export class App extends React.Component {
               </MDBBtn>
 
               <form action={`/download/${this.state.exportModelType}`} method="POST">
-                <input type="submit" value="Submit" />
+                <MDBBtn outline type="submit"> Download </MDBBtn>
               </form>
 
               <MDBDropdown>
