@@ -34,7 +34,6 @@ export class App extends React.Component {
       search: "",
       diagramEngine: new SRD.DiagramEngine(),
 
-      argsPanel: false,
       selectedNode: undefined,
       exportModelType: "Caffe"
     };
@@ -97,8 +96,7 @@ export class App extends React.Component {
 
   toggle() {
     this.setState({
-      selectedNode: undefined,
-      argsPanel: !this.state.argsPanel
+      selectedNode: undefined
     });
   }
 
@@ -114,8 +112,7 @@ export class App extends React.Component {
         var nodeId = selectedNodes[0].getAttribute("data-nodeid");
         var node = this.state.diagramEngine.diagramModel.nodes[nodeId];
         this.setState({
-          selectedNode : node,
-          argsPanel : true
+          selectedNode : node
         })
       }
     } 
@@ -152,6 +149,8 @@ export class App extends React.Component {
 
   render() {
     var argFields = [];
+    var canSaveParams = true; // ensures all required fields are filled before closing panel
+
     if (this.state.selectedNode !== undefined) {
       var selectedNodeArgs = Object.keys(this.state.selectedNode.args);
       for (var i = 0; i < selectedNodeArgs.length; i++) {
@@ -160,6 +159,9 @@ export class App extends React.Component {
         var fieldsWithOptions = Object.keys(argsOptions);
         var discreteOptionField = false;
         var content;
+        if (arg.required && arg.value == "") {
+          canSaveParams = false;
+        }
 
         if (arg.options.length > 0) {
           var options = [];
@@ -167,7 +169,7 @@ export class App extends React.Component {
             options.push(<option value={ arg.options[j] }>{ arg.options[j] }</option>)
           }
 
-          content = <select 
+          content = <select validate 
               name={ selectedNodeArgs[i] } 
               value={ arg.value } 
               onChange={ this.handleChange }
@@ -181,7 +183,7 @@ export class App extends React.Component {
               arg.description.indexOf("number") != -1) {
             inputType = "number";
           }
-          content = <input
+          content = <input validate
             type={ inputType }
             name={ selectedNodeArgs[i] } 
             value={ arg.value } 
@@ -309,6 +311,7 @@ export class App extends React.Component {
                 this.state.diagramEngine
                   .getDiagramModel()
                   .addNode(node);
+                this.setState({ selectedNode : node });
                 this.forceUpdate();
               }}
               onDragOver={event => {
@@ -320,7 +323,8 @@ export class App extends React.Component {
           </div>
         </div>
 
-        <Modal isOpen={ this.state.argsPanel } toggle={() => this.toggle()} fullHeight position="right">
+        <Modal  isOpen={ this.state.selectedNode !== undefined } 
+                toggle={() => {if (canSaveParams) this.toggle()}} fullHeight position="right">
           <MDBRow>
             <MDBCol md="12">
               <MDBCard>
@@ -333,8 +337,7 @@ export class App extends React.Component {
                 </MDBCardBody>
 
                 <MDBModalFooter>
-                  <MDBBtn className="mb-6"> Save </MDBBtn>
-                  <MDBBtn className="mb-6" onClick={ this.toggle }> Close </MDBBtn>
+                  <MDBBtn className="mb-6" disabled={ !canSaveParams } onClick={ this.toggle }> Save </MDBBtn>
                 </MDBModalFooter>
               </MDBCard>
             </MDBCol>

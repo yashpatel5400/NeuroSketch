@@ -32,6 +32,7 @@ def compile():
     # networkX is the canonical Python graph library, so convert to this
     G = nx.DiGraph() 
 
+    export_type = raw_graph['exportModelType'].lower()
     for node, properties in zip(raw_graph['nodes'], raw_graph['nodeProps']):
         G.add_node(node, args=properties['args'], name=properties['name'])
 
@@ -76,7 +77,7 @@ def compile():
                   optimizer=opt,
                   metrics=['accuracy'])
     
-    convert(model, "tensorflow")
+    convert(model, export_type)
 
 if __name__ == '__main__':
     app.run()

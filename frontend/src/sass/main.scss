@@ -49,7 +49,7 @@ $dot-space: 22px;
 }
 
 
-:required {
+input:invalid {
   border-color: red;
   border-style: solid;
 }
