@@ -184,13 +184,20 @@ export class App extends React.Component {
   }
 
   decompileGraph() {
-    // var graph = JSON.parse(this.state.uploadData);
-    var testData = {
-      "color": "#ff4444",
-      "name": "Dense",
-      "type": "inout"
+    var graph = JSON.parse(this.state.uploadData);
+    for (var i = 0; i < graph.nodes.length; i++) {
+      var nodeData = {
+        "color": "#ff4444",
+        "name": graph.nodeProps[i]["name"],
+        "type": "inout"
+      }
+      var node = this.createNode(nodeData);
+      node.args = graph.nodeProps[i].args;
+
+      // TODO: figure out a more intelligent way of repositioning
+      node.x += 10 * i;
+      node.y += 10 * i;
     }
-    this.createNode(testData)
     this.setState({ uploadingData: false });
   }
 
