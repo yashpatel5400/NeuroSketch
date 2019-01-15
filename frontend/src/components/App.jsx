@@ -27,6 +27,29 @@ Array.prototype.insert = function (index, item) {
   this.splice(index, 0, item);
 };
 
+function saveJSON(data, filename){
+  if (!data) {
+    console.error('No data')
+    return;
+  }
+
+  if (!filename) filename = 'console.json'
+
+  if (typeof data === "object"){
+    data = JSON.stringify(data, undefined, 4)
+  }
+
+  var blob = new Blob([data], {type: 'text/json'}),
+    e    = document.createEvent('MouseEvents'),
+    a    = document.createElement('a')
+
+  a.download = filename
+  a.href = window.URL.createObjectURL(blob)
+  a.dataset.downloadurl =  ['text/json', a.download, a.href].join(':')
+  e.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
+  a.dispatchEvent(e)
+}
+
 export class App extends React.Component {
   constructor(props) {
     super(props);
@@ -35,7 +58,8 @@ export class App extends React.Component {
       diagramEngine: new SRD.DiagramEngine(),
 
       selectedNode: undefined,
-      exportModelType: "Caffe"
+      exportModelType: "Caffe",
+      uploadingData: false
     };
     this.state.diagramEngine.installDefaultFactories();
 
@@ -45,6 +69,7 @@ export class App extends React.Component {
     this.handleModelSelect = this.handleModelSelect.bind(this);
     this.getArgOptions = this.getArgOptions.bind(this);
     this.toggle = this.toggle.bind(this);
+    this.toggleUpload = this.toggleUpload.bind(this);
   }
 
   compileGraph() {
@@ -91,13 +116,16 @@ export class App extends React.Component {
       edges : fixedEdges,
       exportModelType: this.state.exportModelType
     }
+    saveJSON(graph, "graph.json")
     return graph;
   }
 
   toggle() {
-    this.setState({
-      selectedNode: undefined
-    });
+    this.setState({ selectedNode: undefined });
+  }
+
+  toggleUpload() {
+    this.setState({ uploadingData: !this.state.uploadingData });
   }
 
   handleSearch(event) {
@@ -240,6 +268,8 @@ export class App extends React.Component {
                 <MDBBtn outline type="submit"> Download </MDBBtn>
               </form>
 
+              <MDBBtn outline onClick={ this.toggleUpload } > Upload </MDBBtn>
+
               <MDBDropdown>
                 <MDBDropdownToggle outline caret color="default" onChange={this.handleModelSelect}>
                   { this.state.exportModelType }
@@ -343,6 +373,22 @@ export class App extends React.Component {
                 <MDBModalFooter>
                   <MDBBtn className="mb-6" disabled={ !canSaveParams } onClick={ this.toggle }> Save </MDBBtn>
                 </MDBModalFooter>
+              </MDBCard>
+            </MDBCol>
+          </MDBRow>
+        </Modal>
+
+        <Modal  isOpen={ this.state.uploadingData } 
+                toggle={ this.toggleUpload }>
+          <MDBRow>
+            <MDBCol md="12">
+              <MDBCard>
+                <MDBCardBody>
+                  <MDBInput label="Graph model" />
+                  <MDBBtn outline >
+                    Compile Graph
+                  </MDBBtn>
+                </MDBCardBody>
               </MDBCard>
             </MDBCol>
           </MDBRow>
