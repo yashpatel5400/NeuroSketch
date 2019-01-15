@@ -124,7 +124,7 @@ export class App extends React.Component {
     return graph;
   }
 
-  createNode(data) {
+  createNode(data, points) {
     var node = new DefaultNodeModel(data.name, data.color);
     if (data.type === "in") {
       node.addInPort("In");
@@ -134,8 +134,6 @@ export class App extends React.Component {
       node.addInPort("In");
       node.addOutPort("Out");
     }
-
-    // var points = this.state.diagramEngine.getRelativeMousePoint(event);
 
     var argDescriptions = layersToArgs[data.name];
     var argsToDefault = layersToArgDefaults[data.name];
@@ -170,13 +168,19 @@ export class App extends React.Component {
       };
     }
     
-    node.x = 0; // points.x;
-    node.y = 0; // points.y;
+    if (points !== undefined) {
+      node.x = points.x;
+      node.y = points.y;
+    } else {
+      node.x = 0;
+      node.y = 0;
+    }
+
     this.state.diagramEngine
       .getDiagramModel()
       .addNode(node);
-    this.setState({ selectedNode : node });
     this.forceUpdate();
+    return node;
   }
 
   decompileGraph() {
@@ -369,58 +373,9 @@ export class App extends React.Component {
               className="diagram-layer"
               onDrop={event => {
                 var data = JSON.parse(event.dataTransfer.getData("storm-diagram-node"));
-                var node = new DefaultNodeModel(data.name, data.color);
-                if (data.type === "in") {
-                  node.addInPort("In");
-                } else if (data.type === "out") {
-                  node.addOutPort("Out");
-                } else {
-                  node.addInPort("In");
-                  node.addOutPort("Out");
-                }
-
                 var points = this.state.diagramEngine.getRelativeMousePoint(event);
-
-                var argDescriptions = layersToArgs[data.name];
-                var argsToDefault = layersToArgDefaults[data.name];
-                var args = Object.keys(argsToDefault);
-
-                node.args = {};
-
-                // argsSplit[0] contains all the required arguments for the layer
-                for (var i = 0; i < args.length; i++) {
-                  var arg = args[i];
-                  var description = argDescriptions[arg];
-                  
-                  var defaultValue = argsToDefault[arg];
-                  var required = defaultValue == ""; // required args don't have default
-                  var options = this.getArgOptions(description);
-
-                  // if we specify "None", it's either because there's an option of None or it's 
-                  // supposed to be an empty text field (even if not required)
-                  if (defaultValue == "None") {
-                    if (options.length > 0) {
-                      options.insert(0, defaultValue);
-                    } else {
-                      defaultValue = "";
-                    }
-                  }
-
-                  node.args[arg] = {
-                    description: description,
-                    required: required, 
-                    value: defaultValue,
-                    options: options
-                  };
-                }
-                
-                node.x = points.x;
-                node.y = points.y;
-                this.state.diagramEngine
-                  .getDiagramModel()
-                  .addNode(node);
+                var node = this.createNode(data, points);
                 this.setState({ selectedNode : node });
-                this.forceUpdate();
               }}
               onDragOver={event => {
                 event.preventDefault();
