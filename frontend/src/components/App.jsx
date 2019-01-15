@@ -59,6 +59,7 @@ export class App extends React.Component {
 
       selectedNode: undefined,
       exportModelType: "Caffe",
+      uploadData: "",
       uploadingData: false
     };
     this.state.diagramEngine.installDefaultFactories();
@@ -70,6 +71,9 @@ export class App extends React.Component {
     this.getArgOptions = this.getArgOptions.bind(this);
     this.toggle = this.toggle.bind(this);
     this.toggleUpload = this.toggleUpload.bind(this);
+    this.handleUploadDataChange = this.handleUploadDataChange.bind(this);
+    this.decompileGraph = this.decompileGraph.bind(this);
+    this.createNode = this.createNode.bind(this);
   }
 
   compileGraph() {
@@ -120,6 +124,72 @@ export class App extends React.Component {
     return graph;
   }
 
+  createNode(data) {
+    var node = new DefaultNodeModel(data.name, data.color);
+    if (data.type === "in") {
+      node.addInPort("In");
+    } else if (data.type === "out") {
+      node.addOutPort("Out");
+    } else {
+      node.addInPort("In");
+      node.addOutPort("Out");
+    }
+
+    // var points = this.state.diagramEngine.getRelativeMousePoint(event);
+
+    var argDescriptions = layersToArgs[data.name];
+    var argsToDefault = layersToArgDefaults[data.name];
+    var args = Object.keys(argsToDefault);
+
+    node.args = {};
+
+    // argsSplit[0] contains all the required arguments for the layer
+    for (var i = 0; i < args.length; i++) {
+      var arg = args[i];
+      var description = argDescriptions[arg];
+      
+      var defaultValue = argsToDefault[arg];
+      var required = defaultValue == ""; // required args don't have default
+      var options = this.getArgOptions(description);
+
+      // if we specify "None", it's either because there's an option of None or it's 
+      // supposed to be an empty text field (even if not required)
+      if (defaultValue == "None") {
+        if (options.length > 0) {
+          options.insert(0, defaultValue);
+        } else {
+          defaultValue = "";
+        }
+      }
+
+      node.args[arg] = {
+        description: description,
+        required: required, 
+        value: defaultValue,
+        options: options
+      };
+    }
+    
+    node.x = 0; // points.x;
+    node.y = 0; // points.y;
+    this.state.diagramEngine
+      .getDiagramModel()
+      .addNode(node);
+    this.setState({ selectedNode : node });
+    this.forceUpdate();
+  }
+
+  decompileGraph() {
+    // var graph = JSON.parse(this.state.uploadData);
+    var testData = {
+      "color": "#ff4444",
+      "name": "Dense",
+      "type": "inout"
+    }
+    this.createNode(testData)
+    this.setState({ uploadingData: false });
+  }
+
   toggle() {
     this.setState({ selectedNode: undefined });
   }
@@ -150,6 +220,10 @@ export class App extends React.Component {
     var updatedSelectedNode = this.state.selectedNode;
     updatedSelectedNode.args[event.target.name].value = event.target.value;
     this.setState({ selectedNode : updatedSelectedNode });
+  }
+
+  handleUploadDataChange(event) {
+    this.setState({ uploadData : event.target.value });
   }
 
   handleModelSelect(event) {
@@ -384,8 +458,8 @@ export class App extends React.Component {
             <MDBCol md="12">
               <MDBCard>
                 <MDBCardBody>
-                  <MDBInput label="Graph model" />
-                  <MDBBtn outline >
+                  <MDBInput label="Graph model" onChange={ this.handleUploadDataChange } />
+                  <MDBBtn outline onClick={ this.decompileGraph } >
                     Compile Graph
                   </MDBBtn>
                 </MDBCardBody>
